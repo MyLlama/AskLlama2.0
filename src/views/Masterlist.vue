@@ -10,7 +10,7 @@
         :class="{ 'selected-master': master.selected }"
       >
         <img :src="master.image" :alt="master.name" class="master-image" />
-        <p class="master-name">
+        <p class="master-name" :class="{ ellipsis: master.name.length > 8 }">
           {{ master.name }}
         </p>
       </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     title: String,
@@ -32,21 +31,18 @@ export default {
       this.saveSelectedMasters();
     },
     saveSelectedMasters() {
-      // const allSelectedMasters = [].concat(
-      //   ...this.$parent.prophets.filter((master) => master.selected),
-      //   ...this.$parent.contemporary.filter((master) => master.selected),
-      //   ...this.$parent.mystics.filter((master) => master.selected),
-      //   ...this.$parent.Philosophers.filter((master) => master.selected),
-      //   ...this.$parent.Psycologists.filter((master) => master.selected),
-      //   ...this.$parent.fictional.filter((master) => master.selected)
-      // );
-      // const masters = this.$parents.mastersCategory.map(category => category.masters);
-      // console.log(this.$parents)
-      // this.$emit("selectedMastersChange", allSelectedMasters);
-      // console.log(this.selectedMasters)
+      const allSelectedMasters = [].concat(
+        ...this.$parent.prophets.filter((master) => master.selected),
+        ...this.$parent.contemporary.filter((master) => master.selected),
+        ...this.$parent.mystics.filter((master) => master.selected),
+        ...this.$parent.Philosophers.filter((master) => master.selected),
+        ...this.$parent.Psycologists.filter((master) => master.selected),
+        ...this.$parent.fictional.filter((master) => master.selected)
+      );
+      this.$emit("selectedMastersChange", allSelectedMasters);
     },
   },
-  mounted() {
+  created() {
     const selectedMasters =
       JSON.parse(localStorage.getItem("selectedMasters")) || [];
     this.masters.forEach((master) => {
@@ -75,7 +71,7 @@ export default {
 }
 .masters-container {
   display: flex;
-  flex-wrap: wrap;
+  overflow-x: auto;
   padding: 10px;
 }
 
@@ -85,9 +81,11 @@ export default {
   height: 30px;
 }
 .master {
-  text-align: center;
-  width: 100px;
-  margin: 10px 20px;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
 }
 
 .master-image {
@@ -103,7 +101,10 @@ export default {
 }
 
 .ellipsis {
-  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 5rem;
 }
 .master-header-name {
   padding-left: 20px;

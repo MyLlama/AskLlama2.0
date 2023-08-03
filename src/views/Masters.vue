@@ -1,471 +1,473 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true" class="ion-no-border">
-      <ion-toolbar mode="ios">
-        <ion-title>Select Masters</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <div class="master-container">
+    <div class="master-header">
+      <span class="back-icon">
+        <img src="../assets/back button.png" />
+      </span>
+      <h1>Select Masters</h1>
+    </div>
+    <br />
+    <MasterList
+      :title="'Prophets'"
+      :masters="prophets"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
+    <MasterList
+      :title="'Contemporary Masters'"
+      :masters="contemporary"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
+    <MasterList
+      :title="'Mystics of the Past'"
+      :masters="mystics"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
+    <MasterList
+      :title="'Western Philosophers'"
+      :masters="Philosophers"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
+    <MasterList
+      :title="'Psychologists'"
+      :masters="Psycologists"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
+    <MasterList
+      :title="'Fictional Chars'"
+      :masters="fictional"
+      :selectedMasters="selectedMasters"
+      @selectedMastersChange="updateSelectedMasters"
+    />
 
-    <ion-content :fullscreen="true">
-      <div v-for="category in mastersCategory" :key="category?.title">
-        <MasterList
-          :title="category.title"
-          :masters="category.masters"
-          :selectedMasters="selectedMasters"
-          @selectedMastersChange="updateSelectedMasters"
-        />
-      </div>
-    
     <div class="done-button">
       <button class="button-87" role="button" @click="saveSelectedMasters">
         Done
       </button>
     </div>
-
-    </ion-content>
-  </ion-page>
+  </div>
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
 import MasterList from "./Masterlist.vue";
-
 export default {
   name: "Master",
   components: {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar, 
     MasterList,
   },
 
   data() {
     return {
       selectedMasters: [],
-      mastersCategory: [
+      prophets: [
         {
-          title: 'Prophets',
-          masters: [
-            {
-              name: "Mohammed",
-              selected: false,
-              image: "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt: "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Buddha",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Jesus",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Krishna",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Mahavira",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Guru Nanak",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-          ]
-        }, 
-        {
-          title: "Contemporary Masters",
-          masters: [
-            {
-              name: "Eckhart tolle",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Mooji",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Thich naht han",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Sadhguru",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Swami Vivekananda",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Sri Sri Ravishanka",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "J. Krishnamurthi ",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Ram Dass",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Alan watts",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Sri Aurobindo",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Ramana MahaRishi ",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-          ]
+          name: "Mohammed",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
         },
         {
-          title: "Mystics of the Past",
-          masters: [
-            {
-              name: "RamKrishna Paramhansa",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Swami Sivananda",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "RabindraNath Tagore",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "UG Krishnamurthy ",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Sri M",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Daaji",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Swami Satyananda Saraswati",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Swami Dayananda Saraswati",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Swami Dayananda Saraswati",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Paramhansa Yogananda",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Kabir Das",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Lao Tzu",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Zen Master Banki ",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Roomi",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-            {
-              name: "Sufi Master X",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
-            },
-          ]
+          name: "Buddha",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
         },
         {
-          title: "Western Philosophers",
-          masters: [
-            {
-              name: "Socrates",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Aristotle",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Plato",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Kant",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Hegel",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Nietzche",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Schoppenhier",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-          ]
+          name: "Jesus",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
         },
         {
-          title: "Psychologists",
-          masters: [
-            {
-              name: "Freud",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Jung",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Einstien",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Feynman",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-          ]
+          name: "Krishna",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
         },
         {
-          title: "Fictional Chars",
-          masters: [
-            {
-              name: "Dumbledore",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Oogway",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Alfred Batman ",
-              selected: false,
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              prompt:
-                "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-            },
-            {
-              name: "Yoda Star wars",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Morpheus",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-            {
-              name: "Gandalf",
-              image:
-                "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-              selected: false,
-              prompt:
-                "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
-            },
-          ]
-        }
-      ]
+          name: "Mahavira",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Guru Nanak",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+      ],
+      contemporary: [
+        {
+          name: "Eckhart tolle",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Mooji",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Thich naht han",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Sadhguru",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Swami Vivekananda",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Sri Sri Ravishanka",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "J. Krishnamurthi ",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Ram Dass",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Alan watts",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Sri Aurobindo",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Ramana MahaRishi ",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+      ],
+
+      mystics: [
+        {
+          name: "RamKrishna Paramhansa",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Swami Sivananda",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "RabindraNath Tagore",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "UG Krishnamurthy ",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Sri M",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Daaji",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Swami Satyananda Saraswati",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Swami Dayananda Saraswati",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Swami Dayananda Saraswati",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Paramhansa Yogananda",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Kabir Das",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Lao Tzu",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Zen Master Banki ",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Roomi",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+        {
+          name: "Sufi Master X",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Buddha, the founder of Buddhism, one of the major religions of the world. Your teachings emphasize the importance of inner peace, compassion, and wisdom. Answer the question below as Buddha would, in a first person voice.",
+        },
+      ],
+      Philosophers: [
+        {
+          name: "Socrates",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Aristotle",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Plato",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Kant",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Hegel",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Nietzche",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Schoppenhier",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+      ],
+      Psycologists: [
+        {
+          name: "Freud",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Jung",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Einstien",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Feynman",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+      ],
+      fictional: [
+        {
+          name: "Dumbledore",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Oogway",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Alfred Batman ",
+          selected: false,
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        },
+        {
+          name: "Yoda Star wars",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Morpheus",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+        {
+          name: "Gandalf",
+          image:
+            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Jesus Christ, a central figure in Christianity, believed by Christians to be the son of God. Your life and teachings are recorded in the New Testament of the Bible. You are known for your teachings of love, compassion, and forgiveness. Answer the question below as Jesus, in a first person voice.",
+        },
+      ],
     };
   },
   methods: {
@@ -482,17 +484,11 @@ export default {
 };
 </script>
 <style scoped>
-ion-toolbar {
-  --background: #19422d;
-}
-.master-container {
-  background-color: #f07812;
-}
 .master-header {
   padding: 10px;
   display: flex;
   background-color: #f07812;
-  color: black;
+  color: white;
   font-family: "Trebuchet MS", sans-serif;
 }
 .master-header h1 {
