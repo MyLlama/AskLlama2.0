@@ -64,4 +64,10 @@ ion-toolbar {
   bottom: auto;
   text-align:center;
 }
+
+@media (max-width: 767px) {
+  .header-logo {
+    display: none;
+  }
+} 
 </style>
