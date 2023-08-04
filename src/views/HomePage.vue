@@ -1,65 +1,67 @@
 <template>
   <ion-page>
-    <ion-header :translucent="true">
+    <ion-header class="ion-no-border">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <img class="header-logo" src="../../public/img/llama-logo.png" alt="">
+        <ion-title mode="ios"> 
+          AskLlama
+          <p class="subtitle">Modern Problems. Timeless Answers.</p>
+        </ion-title>
+        
       </ion-toolbar>
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
+      <chatbox :selectedMasters="selectedMasters" :selectedMastersCount="selectedMasters.length"></chatbox>
 
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
     </ion-content>
   </ion-page>
 </template>
 
-<script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+<script>
+import Chatbox from "@/views/Chatbox.vue";
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonMenuButton, IonButtons } from '@ionic/vue';
 export default {
   components: {
-    IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonToolbar
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonMenuButton, IonButtons, Chatbox
+  },
+  data() {
+    return {
+      selectedMasters: [{
+          name: "Krishna",
+          image: "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
+          selected: false,
+          prompt:
+            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
+        }],
+
+    }
   }
 }
 </script>
 
 <style scoped>
-#container {
-  text-align: center;
-  
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+ion-toolbar {
+  --background: #F07812;
+  --color: #fff;
+  --min-height: 60px;
+ 
+}
+.subtitle {
+  font-size: 60%;
+  color: black;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.header-logo {
+  border-radius: 100%;
+  width: 50px;
+  height: auto;
+  position: relative;
+  left: 37%;
+  bottom: auto;
+  text-align:center;
 }
 </style>
