@@ -10,7 +10,7 @@
         :class="{ 'selected-master': master.selected }"
       >
         <img :src="master.image" :alt="master.name" class="master-image" />
-        <p class="master-name">
+        <p class="master-name" :class="{ ellipsis: master.name.length > 8 }">
           {{ master.name }}
         </p>
       </div>
@@ -19,7 +19,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     title: String,
