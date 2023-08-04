@@ -16,8 +16,8 @@
             </a>
   
             <div class="header-text">
-              <h1>Ask Llama</h1>
-              <h2>Modern Problems. Timeless Answers</h2>
+              <h2>Ask Llama</h2>
+              <p>Modern Problems. Timeless Answers</p>
             </div>
           </div>
         </div>
@@ -61,11 +61,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 20px;
     cursor: pointer;
     color: black;
-    /* border: 1px solid red; */
   }
   
   .hamburger-icon > img {
@@ -75,8 +74,7 @@
   .header {
     background-color: #f07812;
     color: white;
-    padding: 10px;
-    /* border: 1px solid red; */
+    padding: 5px;
   }
   
   .header-container {
@@ -84,7 +82,6 @@
     align-items: center;
     flex-wrap: wrap;
     margin: 0 auto;
-    /* border: 1px solid red; */
   }
   
   .header-logo-text {
@@ -92,62 +89,42 @@
     align-items: center;
     flex: 1;
     justify-content: center;
-    /* border: 1px solid red; */
   }
   
   .header-logo {
-    width: 60px;
-    height: auto;
-    /* border: 1px solid red; */
-  
+    width: 50px;
     margin-right: 20px;
+    margin-top: 5px;
   }
   
-  h1,
   h2 {
+    margin-bottom: 0.2rem;
     margin: 0;
   }
   
-  h1 {
-    margin-bottom: 0.2rem;
-    font-family: "Trebuchet MS", sans-serif;
-  }
-  
-  h2 {
-    font-size: 1.1rem;
-    font-weight: 500;
-    font-family: "Trebuchet MS", sans-serif;
-  }
-  
   .menu-list {
-    /* border: 1px solid red; */
     list-style: none;
-    padding: 20px;
+    padding-top: 20px;
     margin: 0;
     background-color: white;
     color: #f07812;
     position: absolute;
-    top: 7px; /* Adjust the top position to your preference */
-    left: 8px; /* Adjust the left position to your preference */
+    top: 0px; /* Adjust the top position to your preference */
+    left: 0px; /* Adjust the left position to your preference */
     z-index: 1;
-    width: 150px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    font-family: sans-serif;
-    text-align: left;
     cursor: pointer;
     width: 20%;
     height: 100%;
-    /* border: 1px solid red; */
   }
   
   .menu-list li {
-    margin-left: 1.2vw;
+    margin-top: 10px;
     padding: 20px;
     cursor: pointer;
     transition: background-color 0.2s ease;
-    text-align: left;
-    font-size: 25px;
+    font-size: 20px;
   }
   
   .menu-list li:hover {
@@ -165,12 +142,20 @@
     width: 30px;
     height: 30px;
   }
-  .back-icon {
-    /* border: 1px solid red; */
-  }
+
   .fade-enter,
   .fade-leave-to {
     opacity: 0;
+  }
+
+  .header-text {
+    text-align: center;
+  }
+
+  .header-text p {
+    color: black;
+    font-size: 14px;
+    font-weight: 700;
   }
   
   
