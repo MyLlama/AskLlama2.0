@@ -1,12 +1,14 @@
 <template>
   <div class="master-container">
     <div class="master-header">
-      <span class="back-icon">
-        <img src="../assets/back button.png" />
-      </span>
+      <a href="/home">
+        <span class="back-icon"> <img src="../assets/back button.png" /> </span
+      ></a>
+
       <h1>Select Masters</h1>
     </div>
     <br />
+
     <MasterList
       :title="'Prophets'"
       :masters="prophets"
@@ -25,7 +27,7 @@
       :selectedMasters="selectedMasters"
       @selectedMastersChange="updateSelectedMasters"
     />
-    <MasterList
+    <!-- <MasterList
       :title="'Western Philosophers'"
       :masters="Philosophers"
       :selectedMasters="selectedMasters"
@@ -42,12 +44,14 @@
       :masters="fictional"
       :selectedMasters="selectedMasters"
       @selectedMastersChange="updateSelectedMasters"
-    />
+    /> -->
 
     <div class="done-button">
-      <button class="button-87" role="button" @click="saveSelectedMasters">
-        Done
-      </button>
+      <a  href="/home">
+        <button class="button-87" role="button" @click="saveSelectedMasters">
+          Done
+        </button></a
+      >
     </div>
   </div>
 </template>
@@ -203,7 +207,6 @@ export default {
             "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
         },
       ],
-
       mystics: [
         {
           name: "RamKrishna Paramhansa",
@@ -523,13 +526,18 @@ export default {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  text-decoration: none;
+
 }
 
 .button-87:hover {
   background-position: right center;
   color: #fff;
-  text-decoration: none;
   letter-spacing: 0.3em;
+
+}
+a{
+  text-decoration: none;
 }
 
 .button-87:active {
