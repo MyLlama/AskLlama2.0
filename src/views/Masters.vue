@@ -2,6 +2,8 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar mode="ios">
+        <ion-back-button slot="start" text="" default-href="/" />
+
         <ion-title>Select Masters</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -27,12 +29,18 @@
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { defineComponent } from "vue";
+import { IonButton, IonButtons, IonBackButton, IonIcon, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { save, chevronBackOutline } from "ionicons/icons";
 import MasterList from "./Masterlist.vue";
 
-export default {
+export default defineComponent({
   name: "Master",
   components: {
+    IonBackButton,
+    IonButton,
+    IonButtons,
+    IonIcon,
     IonContent,
     IonHeader,
     IonPage,
@@ -567,26 +575,27 @@ export default {
       );
     },
   },
-};
+  setup() {
+    return {
+      save,
+      chevronBackOutline
+    }
+  }
+});
 </script>
 <style scoped>
 ion-toolbar {
   --background: #F07812;
+  --color: white;
+  --min-height: 60px;
 }
-.master-header {
-  padding: 10px;
-  display: flex;
-  background-color: #f07812;
+
+ion-title {
+  font-size: 24px;
+}
+
+ion-back-button {
   color: black;
-  
-}
-.master-header h1 {
-  margin: auto;
-}
-.back-icon > img {
-  width: 100%;
-  width: 30px;
-  height: 30px;
 }
 
 .button-87 {

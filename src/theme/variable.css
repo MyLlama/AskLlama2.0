@@ -82,3 +82,7 @@ http://ionicframework.com/docs/theming/ */
   padding: 0;
   font-family: "Trebuchet MS", sans-serif;
 }
+
+body {
+  background-color: white;
+}
