@@ -2,8 +2,7 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar mode="ios">
-        <ion-back-button slot="start" text="" default-href="/" />
-
+        <ion-back-button slot="start" text="" default-href="/home" />
         <ion-title>Select Masters</ion-title>
       </ion-toolbar>
     </ion-header>

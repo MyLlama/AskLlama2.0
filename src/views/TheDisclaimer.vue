@@ -1,0 +1,170 @@
+<template>
+  <transition name="modal-fade">
+    <div class="modal-backdrop">
+      <div class="modal">
+        <header class="modal-header">
+          <slot name="header"></slot>
+          <button type="button" class="btn-close" @click="close">×</button>
+        </header>
+
+        <section class="modal-body">
+          <slot name="body"></slot>
+        </section>
+
+        <!-- <footer class="modal-footer">
+          <slot name="footer"></slot>
+          <button type="button" class="btn-yellow" @click="close">Close</button>
+        </footer> -->
+      </div>
+    </div>
+  </transition>
+</template>
+
+<style scoped>
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 80%;
+  z-index: 100;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(240, 120, 18, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid red; */
+  border-radius: 30px;
+  height: 45vh;
+  margin: 0 2vw;
+  font-family: 'Trebuchet MS', sans-serif;
+
+
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #f07812;
+  color: white;
+  /* padding: 0.7rem; */
+  /* display: flex; */
+}
+
+.modal-header {
+  position: relative;
+  border-bottom: 1px solid #eeeeee;
+  /* color: #666666; */
+  justify-content: center;
+  text-align: center;
+  font-size: 17px;
+  color: black;
+}
+
+.modal-body {
+  position: relative;
+  padding: 10px ;
+  /* color: #666666; */
+  color: black;
+  flex-grow: 1;
+  overflow-x: hidden;
+  /* border: 3px solid black; */
+  text-align: left;
+}
+
+.modal-footer {
+  background-color: #fcf7ee;
+  padding: 5px;
+  position: sticky;
+  bottom: 0;
+}
+
+.btn-close {
+  position: absolute;
+  top: 0.5vw;
+  right: 2vw;
+  border: none;
+  font-size: 2rem;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  color: black;
+  background: transparent;
+  border-radius: 50%;
+}
+.btn-close:hover {
+  color: white;
+  transition: 0.5s;
+}
+
+.btn-yellow {
+  color: white;
+  background: #f07812;
+  border: 1px solid #f07812;
+  border-radius: 21px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: auto;
+  padding: 8px;
+  transition: 0.5s;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (max-width: 768px) {
+   .btn-close {
+    
+    top: 2vw;
+  } 
+  .modal-header {
+    font-size: 13px;
+  }
+}
+
+.btn-yellow:hover {
+  background-color: black;
+  letter-spacing: 0.5em;
+  border: none;
+}
+.modal-fade-enter,
+.modal-fade-leave-to {
+  opacity: 0;
+}
+.modal-fade-enter-active {
+  animation: modal 0.5s ease-out;
+}
+.modal-fade-leave-active {
+  animation: modal 0.5s ease-in reverse;
+}
+@keyframes modal {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+</style>
+
+<script>
+export default {
+  name: "DisclaimerModal",
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
+};
+</script>
