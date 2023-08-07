@@ -51,6 +51,14 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" id="main-content">
+      <div class="selected-masters">
+        <div class="master-info" v-for="master in selectedMasters" :key="master">
+          <img :src="master.image" :alt="master.name">
+          <p>{{ master.name }}</p>
+        </div>
+        
+
+      </div>
       <chatbox
         :selectedMasters="selectedMasters"
         :selectedMastersCount="selectedMasters.length"
@@ -114,7 +122,7 @@ import Feedback from "../views/Feedback.vue";
 import Rating from "../views/Rating.vue";
 import PrivacyPolicy from "../views/Privacy.vue";
 import Disclaimer from "../views/Disclaimer.vue";
-
+import emitter from '../event-bus';
 import {
   IonContent,
   IonHeader,
@@ -147,21 +155,15 @@ export default {
     PrivacyPolicy,
     Disclaimer,
   },
+  created() {
+    emitter.on("updateSelectedMasters", (selectedMasters) => {
+      this.selectedMasters = selectedMasters;
+    });
+  },
   data() {
     return {
       isDisclaimerVisible: true,
-      thankYouMessage: false,
-
-      selectedMasters: [
-        {
-          name: "Krishna",
-          image:
-            "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-          selected: false,
-          prompt:
-            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-        },
-      ],
+      selectedMasters: [],
     };
   },
 
@@ -235,6 +237,20 @@ ul.custom-bullet li::before {
   content: "✔ ";
   color: green;
   font-weight: bold;
+}
+
+.selected-masters {
+  display: flex;
+  align-items: center;
+}
+
+.selected-masters img {
+  border-radius: 100%;
+
+}
+
+.master-info {
+  margin: 20px;
 }
 
 @media (max-width: 767px) {

@@ -9,12 +9,23 @@
 
     <ion-content :fullscreen="true">
       <div v-for="category in mastersCategory" :key="category?.title">
-        <MasterList
-          :title="category.title"
-          :masters="category.masters"
-          :selectedMasters="selectedMasters"
-          @selectedMastersChange="updateSelectedMasters"
-        />
+        <div>
+          <h2 class="master-header-name">{{ category.title }}</h2>
+          <div class="masters-container">
+            <div
+              class="master"
+              v-for="master in category.masters"
+              :key="master.name"
+              @click="toggleMasterSelection(master)"
+              :class="{ 'selected-master': master.selected }"
+            >
+              <img :src="master.image" :alt="master.name" class="master-image" />
+              <p class="master-name" :class="{ ellipsis: master.name.length > 8 }">
+                {{ master.name }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="done-button">
@@ -40,7 +51,7 @@ import {
   IonToolbar,
 } from "@ionic/vue";
 import { save, chevronBackOutline } from "ionicons/icons";
-import MasterList from "./Masterlist.vue";
+import emitter from '../event-bus';
 
 // masters
 import krishna from "../assets/Website-icons-3.png";
@@ -74,8 +85,7 @@ export default defineComponent({
     IonHeader,
     IonPage,
     IonTitle,
-    IonToolbar,
-    MasterList,
+    IonToolbar, 
   },
 
   data() {
@@ -248,14 +258,18 @@ export default defineComponent({
     };
   },
   methods: {
-    updateSelectedMasters(selectedMasters) {
-      this.selectedMasters = selectedMasters;
+    toggleMasterSelection(master) {
+      master.selected = !master.selected;
+      if(master.selected){
+        this.selectedMasters.push(master);
+      } else {
+        const index = this.selectedMasters.findIndex(selectedMaster => selectedMaster.name === master.name);
+        this.selectedMasters.splice(index, 1);
+      }
     },
     saveSelectedMasters() {
-      localStorage.setItem(
-        "selectedMasters",
-        JSON.stringify(this.selectedMasters)
-      );
+      emitter.emit("updateSelectedMasters", this.selectedMasters);
+      this.$router.push('/home');
     },
   },
   setup() {
@@ -323,6 +337,54 @@ ion-back-button {
   transform: scale(0.95);
 }
 
-@media (max-width: 768px) {
+.selected-master .master-image {
+  border: 2px solid red;
+}
+.master-header {
+  padding: 10px;
+  display: flex;
+  background-color: #f07812;
+  color: white;
+  font-family: "Trebuchet MS", sans-serif;
+}
+.master-header h1 {
+  margin: auto;
+}
+.masters-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.back-icon > img {
+  width: 100%;
+  width: 30px;
+  height: 30px;
+}
+.master {
+  text-align: center;
+  width: 100px;
+  margin: 10px 20px;
+}
+
+.master-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.master-name {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.ellipsis {
+  
+}
+.master-header-name {
+  padding-left: 20px;
+  color: #f07812;
+  font-family: "Trebuchet MS", sans-serif;
 }
 </style>
