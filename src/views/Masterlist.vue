@@ -30,20 +30,6 @@ export default {
       master.selected = !master.selected;
       this.saveSelectedMasters();
     },
-    saveSelectedMasters() {
-      // const allSelectedMasters = [].concat(
-      //   ...this.$parent.prophets.filter((master) => master.selected),
-      //   ...this.$parent.contemporary.filter((master) => master.selected),
-      //   ...this.$parent.mystics.filter((master) => master.selected),
-      //   ...this.$parent.Philosophers.filter((master) => master.selected),
-      //   ...this.$parent.Psycologists.filter((master) => master.selected),
-      //   ...this.$parent.fictional.filter((master) => master.selected)
-      // );
-      // const masters = this.$parents.mastersCategory.map(category => category.masters);
-      // console.log(this.$parents)
-      // this.$emit("selectedMastersChange", allSelectedMasters);
-      // console.log(this.selectedMasters)
-    },
   },
   mounted() {
     const selectedMasters =
@@ -60,7 +46,9 @@ export default {
 
 <style scoped>
 .selected-master .master-image {
-  border: 2px solid red;
+  box-shadow: rgb(44, 55, 67) 0px 20px 30px -10px;
+  transform: scale(1.2);
+  border: 2px solid #f07812;
 }
 .master-header {
   padding: 10px;
@@ -82,6 +70,7 @@ export default {
   width: 100%;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 .master {
   text-align: center;
@@ -92,6 +81,8 @@ export default {
 .master-image {
   width: 50px;
   height: 50px;
+  cursor: pointer;
+
   border-radius: 50%;
 }
 
@@ -102,11 +93,18 @@ export default {
 }
 
 .ellipsis {
-  
 }
 .master-header-name {
   padding-left: 20px;
   color: #f07812;
   font-family: "Trebuchet MS", sans-serif;
+}
+
+@media (max-width: 768px) {
+  .masters-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 12vw;
+  }
 }
 </style>

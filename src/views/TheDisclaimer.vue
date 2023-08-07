@@ -35,7 +35,7 @@
 }
 
 .modal {
-  width: 80%;
+  width: 50%;
   z-index: 100;
   border: none;
   background: #ffffff;
@@ -45,11 +45,9 @@
   flex-direction: column;
   /* border: 1px solid red; */
   border-radius: 30px;
-  height: 45vh;
+  height: 53vh;
   margin: 0 2vw;
-  font-family: 'Trebuchet MS', sans-serif;
-
-
+  font-family: "Trebuchet MS", sans-serif;
 }
 
 .modal-header,
@@ -72,7 +70,7 @@
 
 .modal-body {
   position: relative;
-  padding: 10px ;
+  padding: 10px;
   /* color: #666666; */
   color: black;
   flex-grow: 1;
@@ -122,12 +120,14 @@
   padding-right: 20px;
 }
 @media (max-width: 768px) {
-   .btn-close {
-    
+  .btn-close {
     top: 2vw;
-  } 
+  }
   .modal-header {
     font-size: 13px;
+  }
+  .modal{
+    width: 80%;
   }
 }
 
@@ -161,6 +161,7 @@
 <script>
 export default {
   name: "DisclaimerModal",
+
   methods: {
     close() {
       this.$emit("close");
