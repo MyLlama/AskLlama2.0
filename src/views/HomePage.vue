@@ -9,7 +9,7 @@
       <ion-content>
         <ion-list>
           <ion-item @click="navigateTo('/master')">
-            <ion-label>Select Masters</ion-label>
+            <ion-label class="about-us">Select Masters</ion-label>
           </ion-item>
           <ion-item @click="navigateTo('/home')">
             <ion-label
@@ -20,19 +20,19 @@
           </ion-item>
 
           <ion-item @click="showFeedback">
-            <ion-label>Feedback</ion-label>
+            <ion-label class="about-us">Feedback</ion-label>
           </ion-item>
 
           <ion-item @click="navigateTo('/home')">
-            <ion-label>Share</ion-label>
+            <ion-label class="about-us">Share</ion-label>
           </ion-item>
 
           <ion-item @click="showPrivacyPolicy">
-            <ion-label>Privacy Policy</ion-label>
+            <ion-label class="about-us">Privacy Policy</ion-label>
           </ion-item>
 
           <ion-item @click="showRating">
-            <ion-label>Rate Us</ion-label>
+            <ion-label class="about-us">Rate Us</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>
@@ -43,23 +43,51 @@
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <img class="header-logo" src="../assets/llama-lgo.png" alt="" />
-        <ion-title class="header-title" mode="ios">
-          AskLlama
-          <p class="subtitle">Modern Problems. Timeless Answers.</p>
-        </ion-title>
+
+        <ion-item class="header-title">
+          <img class="header-logo" src="../assets/llama-lgo.png" alt="" />
+          <ion-title class="main-title" mode="ios">
+            AskLlama
+            <p class="subtitle">Modern Problems. Timeless Answers.</p>
+          </ion-title>
+        </ion-item>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true" id="main-content">
-      <div class="selected-masters">
-        <div class="master-info" v-for="master in selectedMasters" :key="master">
-          <img :src="master.image" :alt="master.name">
-          <p>{{ master.name }}</p>
-        </div>
-        
 
+    <ion-content :fullscreen="true" id="main-content">
+      <div class="selected-masters-container">
+        <div class="selected-masters" v-if="selectedMasters.length > 0">
+          <div
+            class="master-info"
+            v-for="master in selectedMasters"
+            :key="master"
+          >
+            <div class="master-content" @click="toggleRemoveButton(master)">
+              <p
+                @click.stop="removeMaster(master)"
+                class="remove_master_button"
+              >
+                ×
+              </p>
+              <img :src="master.image" :alt="master.name" />
+            </div>
+          </div>
+          <div
+            @click="navigateTo('/master')"
+            class="add_button"
+            :class="{ show_add_button: shouldShowAddButton }"
+          >
+            <p>+</p>
+          </div>
+        </div>
+
+        <div v-else class="empty-masters-message">
+          Select at least one master 🌻
+        </div>
       </div>
+
       <chatbox
+        class="chatbox-homepage"
         :selectedMasters="selectedMasters"
         :selectedMastersCount="selectedMasters.length"
       ></chatbox>
@@ -106,8 +134,9 @@
           </p>
         </ul>
       </template>
+      <br />
+      <br />
     </the-disclaimer>
-    
 
     <PrivacyPolicy ref="privacyPolicy" />
     <Rating ref="rating" />
@@ -121,8 +150,7 @@ import TheDisclaimer from "./TheDisclaimer.vue";
 import Feedback from "../views/Feedback.vue";
 import Rating from "../views/Rating.vue";
 import PrivacyPolicy from "../views/Privacy.vue";
-import Disclaimer from "../views/Disclaimer.vue";
-import emitter from '../event-bus';
+import emitter from "../event-bus";
 import {
   IonContent,
   IonHeader,
@@ -153,7 +181,6 @@ export default {
     Feedback,
     Rating,
     PrivacyPolicy,
-    Disclaimer,
   },
   created() {
     emitter.on("updateSelectedMasters", (selectedMasters) => {
@@ -165,6 +192,13 @@ export default {
       isDisclaimerVisible: true,
       selectedMasters: [],
     };
+  },
+  computed: {
+    shouldShowAddButton() {
+      return (
+        this.selectedMasters.length !== 5 && this.selectedMasters.length > 0
+      );
+    },
   },
 
   methods: {
@@ -187,14 +221,34 @@ export default {
     showFeedback() {
       this.$refs.feedback.show();
     },
+    removeMaster(index) {
+      this.selectedMasters.splice(index, 1);
+    },
   },
 };
 </script>
 
 <style scoped>
-.header-title {
-  font-size: 1.5rem;
+ion-label {
+  color: #f07812;
 }
+.header-logo {
+  border-radius: 100%;
+  width: 50px;
+}
+.main-title {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.header-title {
+  margin: auto;
+  width: 450px;
+  display: flex;
+  justify-content: space-around;
+  --background: #f07812;
+}
+
 ion-item {
   cursor: pointer;
 }
@@ -206,6 +260,80 @@ ion-toolbar {
   --color: #fff;
   --min-height: 60px;
 }
+
+.chatbox-homepage {
+  margin-top: 25px;
+  height: 68vh;
+  overflow-y: auto;
+}
+.remove_master_button {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  visibility: hidden;
+}
+.selected-masters-container {
+  max-width: 100%;
+  height: 10vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.master-content:hover .remove_master_button {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.selected-masters {
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 10px;
+}
+
+.master-info {
+  margin: 5px;
+  text-align: center;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.master-content {
+  text-align: center;
+}
+
+.selected-masters img {
+  border-radius: 50%;
+  max-width: 40px;
+  height: auto;
+  border: #f07812 solid;
+  cursor: pointer;
+}
+.add_button {
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+  margin-top: 20px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  display: none;
+  font-weight: bold;
+}
+.show_add_button {
+  display: block;
+}
+.add_button p {
+  border-radius: 50%;
+  position: relative;
+  left: 11px;
+  bottom: 1px;
+}
 ion-page {
   font-family: "Trebuchet MS", sans-serif;
 }
@@ -215,18 +343,8 @@ ion-page {
   color: #f07812;
 }
 .subtitle {
-  font-size: 60%;
+  font-size: 1rem;
   color: black;
-}
-
-.header-logo {
-  border-radius: 100%;
-  width: 50px;
-  height: auto;
-  position: relative;
-  left: 37%;
-  bottom: auto;
-  text-align: center;
 }
 
 ul.custom-bullet {
@@ -238,19 +356,11 @@ ul.custom-bullet li::before {
   color: green;
   font-weight: bold;
 }
-
-.selected-masters {
-  display: flex;
-  align-items: center;
-}
-
-.selected-masters img {
-  border-radius: 100%;
-
-}
-
-.master-info {
-  margin: 20px;
+.empty-masters-message {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 1rem;
 }
 
 @media (max-width: 767px) {
@@ -259,6 +369,20 @@ ul.custom-bullet li::before {
   }
   textarea {
     width: 95%;
+  }
+  .header-title {
+    width: 260px;
+  }
+  .main-title {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 0.7rem;
+    color: black;
+  }
+
+  .chatbox-homepage {
+    height: 65vh;
   }
 }
 </style>

@@ -43,7 +43,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* border: 1px solid red; */
+
   border-radius: 30px;
   height: 53vh;
   margin: 0 2vw;
@@ -54,8 +54,6 @@
 .modal-footer {
   background-color: #f07812;
   color: white;
-  /* padding: 0.7rem; */
-  /* display: flex; */
 }
 
 .modal-header {
@@ -70,12 +68,12 @@
 
 .modal-body {
   position: relative;
-  padding: 10px;
-  /* color: #666666; */
+  padding-left:1.5rem ;
+  padding-right:1.5rem ;
+
   color: black;
   flex-grow: 1;
   overflow-x: hidden;
-  /* border: 3px solid black; */
   text-align: left;
 }
 
@@ -126,7 +124,7 @@
   .modal-header {
     font-size: 13px;
   }
-  .modal{
+  .modal {
     width: 80%;
   }
 }
