@@ -91,6 +91,9 @@
         :selectedMasters="selectedMasters"
         :selectedMastersCount="selectedMasters.length"
       ></chatbox>
+      <div class="footer">
+        Join Llama's programs to awaken your inner wisdom🌻
+      </div>
     </ion-content>
 
     <!-- disclaimer -->
@@ -162,6 +165,7 @@ import {
   IonList,
   IonItem,
   IonLabel,
+  menuController
 } from "@ionic/vue";
 
 export default {
@@ -181,6 +185,7 @@ export default {
     Feedback,
     Rating,
     PrivacyPolicy,
+    menuController
   },
   created() {
     emitter.on("updateSelectedMasters", (selectedMasters) => {
@@ -202,9 +207,9 @@ export default {
   },
 
   methods: {
-    navigateTo(path) {
+    async navigateTo(path) {
       this.$router.push(path);
-      this.$menuController.close();
+      await menuController.toggle();
     },
     showDisclaimer() {
       this.isDisclaimerVisible = true;
@@ -212,14 +217,17 @@ export default {
     closeDisclaimer() {
       this.isDisclaimerVisible = false;
     },
-    showRating() {
+    async showRating() {
       this.$refs.rating.show();
+      await menuController.toggle();
     },
-    showPrivacyPolicy() {
+    async showPrivacyPolicy() {
       this.$refs.privacyPolicy.show();
+      await menuController.toggle();
     },
-    showFeedback() {
+    async showFeedback() {
       this.$refs.feedback.show();
+      await menuController.toggle();
     },
     removeMaster(index) {
       this.selectedMasters.splice(index, 1);
@@ -229,6 +237,14 @@ export default {
 </script>
 
 <style scoped>
+.footer {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
 ion-label {
   color: #f07812;
 }
