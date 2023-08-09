@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-menu side="start" content-id="main-content">
-      <ion-header>
+      <ion-header class="ion-no-border-menu">
         <ion-toolbar>
           <ion-back-button slot="start" text="" default-href="/home" />
         </ion-toolbar>
@@ -39,7 +39,7 @@
     </ion-menu>
 
     <ion-header class="ion-no-border">
-      <ion-toolbar>
+      <ion-toolbar class="ion-toolbar-header">
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
@@ -229,21 +229,43 @@ export default {
 </script>
 
 <style scoped>
+.about-us {
+  text-decoration: none;
+  color: #f07812;
+  font-size: 1.3rem;
+}
+.about-us:hover {
+  color: black;
+}
+ion-menu-button {
+  color: black;
+  font-size: 3rem;
+}
+.ion-no-border {
+  padding: 5px;
+}
+.ion-no-border-menu {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+.ion-toolbar-header {
+  padding: 8px;
+}
 ion-label {
   color: #f07812;
 }
 .header-logo {
   border-radius: 100%;
-  width: 50px;
+  width: 60px;
 }
 .main-title {
-  font-size: 1.5rem;
+  font-size: 1.9rem;
   color: white;
 }
 
 .header-title {
   margin: auto;
-  width: 450px;
+  width: 500px;
   display: flex;
   justify-content: space-around;
   --background: #f07812;
@@ -252,6 +274,7 @@ ion-label {
 ion-item {
   cursor: pointer;
 }
+
 h2 {
   font-family: "Trebuchet MS", sans-serif;
 }
@@ -263,18 +286,24 @@ ion-toolbar {
 
 .chatbox-homepage {
   margin-top: 25px;
-  height: 68vh;
+  height: 65vh;
   overflow-y: auto;
 }
 .remove_master_button {
+  margin-left: auto;
   text-align: right;
-  font-size: 1.2rem;
   font-weight: bold;
   visibility: hidden;
+  height: 10px;
+  width: 10px;
+  font-size: 1.3rem;
+  position: relative;
+  bottom: 6px;
+  left: 5px;
 }
 .selected-masters-container {
   max-width: 100%;
-  height: 10vh;
+  height: 8vh;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
@@ -285,7 +314,7 @@ ion-toolbar {
 }
 
 .selected-masters {
-  height: 10vh;
+  height: 8vh;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -318,8 +347,8 @@ ion-toolbar {
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  margin-left: 10px;
-  margin-top: 20px;
+  margin-left: 5px;
+  margin-top: 6px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   display: none;
@@ -338,12 +367,8 @@ ion-page {
   font-family: "Trebuchet MS", sans-serif;
 }
 
-.about-us {
-  text-decoration: none;
-  color: #f07812;
-}
 .subtitle {
-  font-size: 1rem;
+  font-size: 1.11rem;
   color: black;
 }
 
@@ -371,18 +396,25 @@ ul.custom-bullet li::before {
     width: 95%;
   }
   .header-title {
-    width: 260px;
+    width: 300px;
   }
   .main-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
   .subtitle {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     color: black;
   }
 
   .chatbox-homepage {
-    height: 65vh;
+    height: 68.5vh;
+  }
+  .selected-masters-container {
+    height: 7vh;
+  }
+
+  .selected-masters {
+    height: 7vh;
   }
 }
 </style>

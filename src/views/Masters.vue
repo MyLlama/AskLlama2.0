@@ -56,6 +56,7 @@
         },
       ]"
     ></ion-alert>
+    
   </ion-page>
 </template>
 
@@ -76,8 +77,6 @@ import {
 import { save, chevronBackOutline } from "ionicons/icons";
 import emitter from "../event-bus";
 
-// masters
-import krishna from "../assets/Website-icons-3.png";
 import krishna2 from "../assets/krishna2.jpg";
 import jusus from "../assets/Christ.jpg";
 import buddha from "../assets/Buddha-new-1.webp";
@@ -89,7 +88,6 @@ import Osho from "../assets/osho.jpg";
 import Vivekananda from "../assets/Swami-vivekananda.jpg";
 import Jiddu from "../assets/Jiddu-Krishnamurthy-1.jpg";
 import Lao from "../assets/Lao-tzu-new.jpg";
-import Dalai from "../assets/dalai-lama.jpg";
 import Suzuki from "../assets/Zen-Master.jpg";
 import Rumi from "../assets/Sufi-master-Rumi.jpg";
 import Socrates from "../assets/Socrates.jpg";
@@ -388,7 +386,6 @@ ion-back-button {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  
 }
 
 .back-icon > img {
@@ -421,5 +418,10 @@ ion-back-button {
   padding-left: 20px;
   color: #f07812;
   font-family: "Trebuchet MS", sans-serif;
+}
+@media (max-width: 767px) {
+  .master {
+    margin: 10px 11px;
+  }
 }
 </style>

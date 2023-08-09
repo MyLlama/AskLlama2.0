@@ -290,8 +290,8 @@ ion-icon {
 .clear-chat-button-img {
   height: 20px;
   position: fixed;
-  top: 11.5%;
-  right: 2%;
+  top: 9.6%;
+  right: 1%;
 }
 
 .chat-container {
