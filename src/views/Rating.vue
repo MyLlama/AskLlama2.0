@@ -1,11 +1,18 @@
 <template>
-  <the-disclaimer v-show="isVisible" @close="close">
+  <the-disclaimer
+    v-show="isVisible"
+    @close="close"
+    :modalWidth="modalWidth"
+    :modalHeight="modalHeight"
+  >
     <template v-slot:header>
       <h2>Rate Us</h2>
     </template>
     <template #body>
       <div v-if="!thankYouMessage" class="rating-container">
         <h5>How would you rate this product?</h5>
+        <br />
+
         <div class="rating">
           <img
             v-for="(star, index) in 5"
@@ -18,13 +25,17 @@
           />
         </div>
         <br />
+        <br />
+
         <textarea placeholder="Anything you would like to add...."></textarea>
         <br />
         <br />
         <button class="submit-rating" @click="submitRating">Submit</button>
       </div>
       <div class="thank-you-msg" v-else>
-        <h2>Thank you for rating AskLlama! 🌻</h2>
+        <br />
+        <br />
+        <p>Thank you for rating AskLlama! 🌻</p>
         <br />
         <br />
         <img class="logo-llama" src="../assets/llama-lgo.png" />
@@ -35,6 +46,9 @@
 
 <script>
 import TheDisclaimer from "./TheDisclaimer.vue";
+import star from "../assets/star.png";
+import star1 from "../assets/star (1).png";
+
 export default {
   components: {
     TheDisclaimer,
@@ -45,12 +59,13 @@ export default {
       isVisible: false,
       currentRating: 0,
       thankYouMessage: false,
-      regularStarImageUrl:
-        "https://github.com/Piryanshu88/Mind_Maze/assets/97978681/d8cd7554-0f34-4882-9952-83b2c394e3b9",
-      filledStarImageUrl:
-        "https://github.com/Piryanshu88/Mind_Maze/assets/97978681/369e85a8-a086-47db-83d0-bd0edb7ef562",
+      modalWidth: "26%",
+      modalHeight: "47vh",
+      regularStarImageUrl: star,
+      filledStarImageUrl: star1,
     };
   },
+
   methods: {
     show() {
       this.isVisible = true;
@@ -61,12 +76,12 @@ export default {
     updateRating(rating) {
       this.currentRating = rating;
     },
+
     submitRating() {
       if (this.currentRating === 0) {
         alert("Please select at least one star before submitting your rating.");
         return;
       }
-
       const feedbackText = document
         .querySelector(".rating-container textarea")
         .value.trim();
@@ -74,7 +89,6 @@ export default {
         alert("Please provide your feedback before submitting your rating.");
         return;
       }
-
       this.thankYouMessage = true;
     },
   },
@@ -143,6 +157,7 @@ textarea {
 }
 .thank-you-msg {
   text-align: center;
+  font-size: 1.5rem;
 }
 .logo-llama {
   margin: auto;
@@ -152,5 +167,28 @@ textarea {
   textarea {
     width: 95%;
   }
+  .thank-you-msg {
+    text-align: center;
+    font-size: 1.4rem;
+  }
+}
+
+.alert-message {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
+}
+
+.alert-button {
+  color: #fff;
+  background-color: #f09819;
+  border-radius: 5px;
+  padding: 8px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.alert-button:hover {
+  background-color: #ff512f;
 }
 </style>

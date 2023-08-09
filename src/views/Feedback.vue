@@ -1,5 +1,10 @@
 <template>
-  <the-disclaimer v-show="isVisible" @close="close">
+  <the-disclaimer
+    v-show="isVisible"
+    @close="close"
+    :modalWidth="modalWidth"
+    :modalHeight="modalHeight"
+  >
     <template v-slot:header>
       <h2>Feedback</h2>
     </template>
@@ -18,7 +23,9 @@
         <button class="submit-rating" @click="submitFeedback">Submit</button>
       </div>
       <div class="thank-you-msg" v-else>
-        <h2>Thank you for Your Valuable Feedback! 🌻</h2>
+        <br />
+        <br />
+        <p>Thank you for Your Valuable Feedback! 🌻</p>
         <br />
         <br />
         <img class="logo-llama" src="../assets/llama-lgo.png" />
@@ -38,6 +45,8 @@ export default {
     return {
       isVisible: false,
       thankYouMessage: false,
+      modalWidth: "26%",
+      modalHeight: "52vh",
     };
   },
   methods: {
@@ -67,7 +76,7 @@ export default {
   flex-direction: column;
   gap: 10px;
   margin: auto;
-  width: 60%;
+  width: 95%;
 }
 input {
   padding: 10px;
@@ -125,13 +134,18 @@ input {
 }
 .thank-you-msg {
   text-align: center;
+  font-size: 1.5rem;
 }
 @media (max-width: 767px) {
   textarea {
     width: 95%;
   }
   .feedback-container {
-    width: 95%;
+    width: 99%;
+  }
+  .thank-you-msg {
+    text-align: center;
+    font-size: 1.4rem;
   }
 }
 </style>

@@ -2,8 +2,10 @@
   <ion-page>
     <ion-menu side="start" content-id="main-content">
       <ion-header class="ion-no-border-menu">
-        <ion-toolbar>
-          <ion-back-button slot="start" text="" default-href="/home" />
+        <ion-toolbar class="menu-header">
+          <ion-menu-toggle>
+            <img class="back-button" src="../assets/back button.png" />
+          </ion-menu-toggle>
         </ion-toolbar>
       </ion-header>
       <ion-content>
@@ -11,7 +13,7 @@
           <ion-item @click="navigateTo('/master')">
             <ion-label class="about-us">Select Masters</ion-label>
           </ion-item>
-          <ion-item @click="navigateTo('/home')">
+          <ion-item>
             <ion-label
               ><a class="about-us" href="https://www.myllama.co/"
                 >About Us</a
@@ -91,6 +93,9 @@
         :selectedMasters="selectedMasters"
         :selectedMastersCount="selectedMasters.length"
       ></chatbox>
+      <div class="footer">
+        Join Llama's programs to awaken your inner wisdom🌻
+      </div>
     </ion-content>
 
     <!-- disclaimer -->
@@ -133,13 +138,14 @@
             llamas trying to make your day a little brighter!
           </p>
         </ul>
+        <br />
       </template>
       <br />
       <br />
     </the-disclaimer>
 
     <PrivacyPolicy ref="privacyPolicy" />
-    <Rating ref="rating" />
+    <Rating ref="rating" class="rating_" />
     <Feedback ref="feedback" />
   </ion-page>
 </template>
@@ -162,6 +168,7 @@ import {
   IonList,
   IonItem,
   IonLabel,
+  menuController,
 } from "@ionic/vue";
 
 export default {
@@ -181,6 +188,7 @@ export default {
     Feedback,
     Rating,
     PrivacyPolicy,
+    menuController,
   },
   created() {
     emitter.on("updateSelectedMasters", (selectedMasters) => {
@@ -202,9 +210,9 @@ export default {
   },
 
   methods: {
-    navigateTo(path) {
+    async navigateTo(path) {
       this.$router.push(path);
-      this.$menuController.close();
+      await menuController.toggle();
     },
     showDisclaimer() {
       this.isDisclaimerVisible = true;
@@ -212,14 +220,17 @@ export default {
     closeDisclaimer() {
       this.isDisclaimerVisible = false;
     },
-    showRating() {
+    async showRating() {
       this.$refs.rating.show();
+      await menuController.toggle();
     },
-    showPrivacyPolicy() {
+    async showPrivacyPolicy() {
       this.$refs.privacyPolicy.show();
+      await menuController.toggle();
     },
-    showFeedback() {
+    async showFeedback() {
       this.$refs.feedback.show();
+      await menuController.toggle();
     },
     removeMaster(index) {
       this.selectedMasters.splice(index, 1);
@@ -229,6 +240,15 @@ export default {
 </script>
 
 <style scoped>
+ion-menu {
+  width: 100%;
+}
+
+.menu-header {
+  padding: 0vh;
+  cursor: pointer;
+  --background: #fff;
+}
 .about-us {
   text-decoration: none;
   color: #f07812;
@@ -244,6 +264,7 @@ ion-menu-button {
 .ion-no-border {
   padding: 5px;
 }
+
 .ion-no-border-menu {
   padding-left: 5px;
   padding-top: 5px;
@@ -251,6 +272,21 @@ ion-menu-button {
 .ion-toolbar-header {
   padding: 8px;
 }
+.back-button {
+  padding: 0;
+  margin: 0;
+  width: 27px;
+  height: 25px;
+}
+.footer {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  left: 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
 ion-label {
   color: #f07812;
 }
@@ -377,8 +413,8 @@ ul.custom-bullet {
 }
 
 ul.custom-bullet li::before {
-  content: "✔ ";
-  color: green;
+  content: "•";
+  color: black;
   font-weight: bold;
 }
 .empty-masters-message {
@@ -415,6 +451,10 @@ ul.custom-bullet li::before {
 
   .selected-masters {
     height: 7vh;
+  }
+  .footer {
+    font-size: 0.9rem;
+    bottom: 8px;
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <transition name="modal-fade">
     <div class="modal-backdrop">
-      <div class="modal">
+      <div class="modal" :style="modalStyles">
         <header class="modal-header">
           <slot name="header"></slot>
           <button type="button" class="btn-close" @click="close">×</button>
@@ -10,15 +10,33 @@
         <section class="modal-body">
           <slot name="body"></slot>
         </section>
-
-        <!-- <footer class="modal-footer">
-          <slot name="footer"></slot>
-          <button type="button" class="btn-yellow" @click="close">Close</button>
-        </footer> -->
       </div>
     </div>
   </transition>
 </template>
+
+<script>
+export default {
+  name: "TheDisclaimer",
+  props: {
+    modalWidth: String,
+    modalHeight: String,
+  },
+  computed: {
+    modalStyles() {
+      return {
+        width: this.modalWidth,
+        height: this.modalHeight,
+      };
+    },
+  },
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
+};
+</script>
 
 <style scoped>
 .modal-backdrop {
@@ -36,6 +54,7 @@
 
 .modal {
   width: 50%;
+  height: 50vh;
   z-index: 100;
   border: none;
   background: #ffffff;
@@ -43,45 +62,28 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-
   border-radius: 30px;
-  height: 53vh;
-  margin: 0 2vw;
   font-family: "Trebuchet MS", sans-serif;
-}
-
-.modal-header,
-.modal-footer {
-  background-color: #f07812;
-  color: white;
 }
 
 .modal-header {
   position: relative;
   border-bottom: 1px solid #eeeeee;
-  /* color: #666666; */
   justify-content: center;
   text-align: center;
   font-size: 17px;
   color: black;
+  background-color: #f07812;
 }
 
 .modal-body {
   position: relative;
-  padding-left:1.5rem ;
-  padding-right:1.5rem ;
-
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
   color: black;
   flex-grow: 1;
   overflow-x: hidden;
   text-align: left;
-}
-
-.modal-footer {
-  background-color: #fcf7ee;
-  padding: 5px;
-  position: sticky;
-  bottom: 0;
 }
 
 .btn-close {
@@ -98,42 +100,7 @@
   background: transparent;
   border-radius: 50%;
 }
-.btn-close:hover {
-  color: white;
-  transition: 0.5s;
-}
 
-.btn-yellow {
-  color: white;
-  background: #f07812;
-  border: 1px solid #f07812;
-  border-radius: 21px;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: auto;
-  padding: 8px;
-  transition: 0.5s;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-@media (max-width: 768px) {
-  .btn-close {
-    top: 2vw;
-  }
-  .modal-header {
-    font-size: 13px;
-  }
-  .modal {
-    width: 80%;
-  }
-}
-
-.btn-yellow:hover {
-  background-color: black;
-  letter-spacing: 0.5em;
-  border: none;
-}
 .modal-fade-enter,
 .modal-fade-leave-to {
   opacity: 0;
@@ -154,16 +121,15 @@
     transform: translateY(0) scale(1);
   }
 }
+
+@media (max-width: 767px) {
+  .modal {
+    width: 80% !important;
+    height: 47vh !important;
+  }
+  .btn-close {
+    top: 2.1vw;
+    right: 2vw;
+  }
+}
 </style>
-
-<script>
-export default {
-  name: "DisclaimerModal",
-
-  methods: {
-    close() {
-      this.$emit("close");
-    },
-  },
-};
-</script>

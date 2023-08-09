@@ -2,7 +2,9 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar mode="ios">
-        <ion-back-button slot="start" text="" default-href="/home" />
+        <ion-buttons slot="start" class="back-button">
+          <ion-back-button text="" default-href="/home" />
+        </ion-buttons>
         <ion-title>Select Masters</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -24,10 +26,7 @@
                 :alt="master.name"
                 class="master-image"
               />
-              <p
-                class="master-name"
-                :class="{ ellipsis: master.name.length > 8 }"
-              >
+              <p class="master-name">
                 {{ master.name }}
               </p>
             </div>
@@ -56,8 +55,11 @@
         },
       ]"
     ></ion-alert>
+
     
   </ion-page>
+
+  
 </template>
 
 <script>
@@ -74,6 +76,7 @@ import {
   IonToolbar,
   IonAlert,
 } from "@ionic/vue";
+
 import { save, chevronBackOutline } from "ionicons/icons";
 import emitter from "../event-bus";
 
@@ -276,7 +279,12 @@ export default defineComponent({
       ],
     };
   },
+
   methods: {
+    goToHomePage() {
+      console.log("shvam");
+      this.$router.push("/home");
+    },
     toggleMasterSelection(master) {
       if (master.selected) {
         master.selected = false;
@@ -317,11 +325,16 @@ ion-toolbar {
 }
 
 ion-title {
-  font-size: 24px;
+  font-size: 2rem;
 }
-
 ion-back-button {
   color: black;
+}
+.back-button {
+  width: 40px;
+  height: 30px;
+  margin-left: 10px;
+  font-weight: bold;
 }
 .done-button {
   position: fixed;
@@ -370,7 +383,7 @@ ion-back-button {
   box-shadow: rgb(44, 55, 67) 0px 20px 30px -10px;
   transform: scale(1.2);
   cursor: pointer;
-  border: 2px solid #f07812;
+  border: 3px solid #f07812;
 }
 .master-header {
   padding: 10px;
@@ -410,18 +423,22 @@ ion-back-button {
   margin-top: 10px;
   font-size: 14px;
   text-align: center;
+  font-weight: bold;
+  color: #434242;
 }
 
-.ellipsis {
-}
 .master-header-name {
   padding-left: 20px;
   color: #f07812;
   font-family: "Trebuchet MS", sans-serif;
+  font-size: 2rem;
 }
 @media (max-width: 767px) {
   .master {
     margin: 10px 11px;
+  }
+  .master-header-name {
+    font-size: 1.7rem;
   }
 }
 </style>
