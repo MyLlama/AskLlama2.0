@@ -33,6 +33,9 @@
           </div>
         </div>
       </div>
+      <br />
+      <br />
+      <br />
 
       <div class="done-button">
         <button class="button-87" role="button" @click="saveSelectedMasters">
@@ -55,11 +58,7 @@
         },
       ]"
     ></ion-alert>
-
-    
   </ion-page>
-
-  
 </template>
 
 <script>
@@ -272,10 +271,10 @@ export default defineComponent({
             },
           ],
         },
-        {
-          title: "Fictional Chars",
-          masters: [],
-        },
+        // {
+        //   title: "Fictional Chars",
+        //   masters: [],
+        // },
       ],
     };
   },
@@ -378,12 +377,16 @@ ion-back-button {
 .button-87:active {
   transform: scale(0.95);
 }
+.master-image {
+  border: 5px solid #f2f1ef;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+}
 
 .selected-master .master-image {
-  box-shadow: rgb(44, 55, 67) 0px 20px 30px -10px;
-  transform: scale(1.2);
+  transform: scale(1);
   cursor: pointer;
-  border: 3px solid #f07812;
+  border: 5px solid #f07812;
 }
 .master-header {
   padding: 10px;
@@ -414,8 +417,8 @@ ion-back-button {
 }
 
 .master-image {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
 }
 

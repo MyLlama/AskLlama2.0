@@ -1,19 +1,17 @@
 <template>
   <ion-page>
     <ion-menu side="start" content-id="main-content">
-      <ion-header class="ion-no-border-menu">
-        <ion-toolbar class="menu-header">
-          <ion-menu-toggle>
-            <img class="back-button" src="../assets/back button.png" />
-          </ion-menu-toggle>
-        </ion-toolbar>
-      </ion-header>
+      <ion-toolbar class="menu-header">
+        <ion-menu-toggle>
+          <img class="back-button" src="../assets/back button.png" />
+        </ion-menu-toggle>
+      </ion-toolbar>
       <ion-content>
         <ion-list>
-          <ion-item @click="navigateTo('/master')">
+          <ion-item lines="none" @click="navigateTo('/master')">
             <ion-label class="about-us">Select Masters</ion-label>
           </ion-item>
-          <ion-item>
+          <ion-item lines="none">
             <ion-label
               ><a class="about-us" href="https://www.myllama.co/"
                 >About Us</a
@@ -21,19 +19,19 @@
             >
           </ion-item>
 
-          <ion-item @click="showFeedback">
+          <ion-item lines="none" @click="showFeedback">
             <ion-label class="about-us">Feedback</ion-label>
           </ion-item>
 
-          <ion-item @click="navigateTo('/home')">
+          <ion-item lines="none" @click="navigateTo('/home')">
             <ion-label class="about-us">Share</ion-label>
           </ion-item>
 
-          <ion-item @click="showPrivacyPolicy">
+          <ion-item lines="none" @click="showPrivacyPolicy">
             <ion-label class="about-us">Privacy Policy</ion-label>
           </ion-item>
 
-          <ion-item @click="showRating">
+          <ion-item lines="none" @click="showRating">
             <ion-label class="about-us">Rate Us</ion-label>
           </ion-item>
         </ion-list>
@@ -46,7 +44,7 @@
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
 
-        <ion-item class="header-title">
+        <ion-item lines="none" class="header-title">
           <img class="header-logo" src="../assets/llama-lgo.png" alt="" />
           <ion-title class="main-title" mode="ios">
             AskLlama
@@ -94,7 +92,9 @@
         :selectedMastersCount="selectedMasters.length"
       ></chatbox>
       <div class="footer">
-        Join Llama's programs to awaken your inner wisdom🌻
+        <a class="footer-link" href="https://www.myllama.co/">
+          Join Llama's programs to awaken your inner wisdom🌻
+        </a>
       </div>
     </ion-content>
 
@@ -278,6 +278,10 @@ ion-menu-button {
   width: 27px;
   height: 25px;
 }
+.footer-link {
+  text-decoration: none;
+  color: black;
+}
 .footer {
   position: absolute;
   bottom: 5px;
@@ -368,6 +372,10 @@ ion-toolbar {
 
 .master-content {
   text-align: center;
+}
+.back-button {
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .selected-masters img {
