@@ -27,7 +27,7 @@
       <ul class="menu-list" v-if="showMenu">
         <!-- Back button icon -->
         <span class="back-icon" @click="toggleMenu">
-          <img src="../assets/back button.png" />
+          <img src="../assets/backButton.png" />
         </span>
         <li>Select Masters</li>
         <li>About Us</li>

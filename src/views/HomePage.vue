@@ -3,7 +3,7 @@
     <ion-menu side="start" content-id="main-content">
       <ion-toolbar class="menu-header">
         <ion-menu-toggle>
-          <img class="back-button" src="../assets/back button.png" />
+          <img class="back-button" src="../assets/backButton.png" />
         </ion-menu-toggle>
       </ion-toolbar>
       <ion-content>
