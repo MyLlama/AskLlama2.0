@@ -1,73 +1,468 @@
 <template>
   <ion-page>
+    <ion-menu side="start" content-id="main-content">
+      <ion-toolbar class="menu-header">
+        <ion-menu-toggle>
+          <img class="back-button" src="../assets/back button.png" />
+        </ion-menu-toggle>
+      </ion-toolbar>
+      <ion-content>
+        <ion-list>
+          <ion-item lines="none" @click="navigateTo('/master')">
+            <ion-label class="about-us">Select Masters</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label
+              ><a class="about-us" href="https://www.myllama.co/"
+                >About Us</a
+              ></ion-label
+            >
+          </ion-item>
+
+          <ion-item lines="none" @click="showFeedback">
+            <ion-label class="about-us">Feedback</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" @click="navigateTo('/home')">
+            <ion-label class="about-us">Share</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" @click="showPrivacyPolicy">
+            <ion-label class="about-us">Privacy Policy</ion-label>
+          </ion-item>
+
+          <ion-item lines="none" @click="showRating">
+            <ion-label class="about-us">Rate Us</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
     <ion-header class="ion-no-border">
-      <ion-toolbar>
+      <ion-toolbar class="ion-toolbar-header">
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <img class="header-logo" src="../../public/img/llama-logo.png" alt="">
-        <ion-title mode="ios"> 
-          AskLlama
-          <p class="subtitle">Modern Problems. Timeless Answers.</p>
-        </ion-title>
-        
+
+        <ion-item lines="none" class="header-title">
+          <img class="header-logo" src="../assets/llama-lgo.png" alt="" />
+          <ion-title class="main-title" mode="ios">
+            AskLlama
+            <p class="subtitle">Modern Problems. Timeless Answers.</p>
+          </ion-title>
+        </ion-item>
       </ion-toolbar>
     </ion-header>
 
-    <ion-content :fullscreen="true">
-      <chatbox :selectedMasters="selectedMasters" :selectedMastersCount="selectedMasters.length"></chatbox>
+    <ion-content :fullscreen="true" id="main-content">
+      <div class="selected-masters-container">
+        <div class="selected-masters" v-if="selectedMasters.length > 0">
+          <div
+            class="master-info"
+            v-for="master in selectedMasters"
+            :key="master"
+          >
+            <div class="master-content" @click="toggleRemoveButton(master)">
+              <p
+                @click.stop="removeMaster(master)"
+                class="remove_master_button"
+              >
+                ×
+              </p>
+              <img :src="master.image" :alt="master.name" />
+            </div>
+          </div>
+          <div
+            @click="navigateTo('/master')"
+            class="add_button"
+            :class="{ show_add_button: shouldShowAddButton }"
+          >
+            <p>+</p>
+          </div>
+        </div>
 
+        <div v-else class="empty-masters-message">
+          Select at least one master 🌻
+        </div>
+      </div>
+
+      <chatbox
+        class="chatbox-homepage"
+        :selectedMasters="selectedMasters"
+        :selectedMastersCount="selectedMasters.length"
+      ></chatbox>
+      <div class="footer">
+        <a class="footer-link" href="https://www.myllama.co/">
+          Join Llama's programs to awaken your inner wisdom🌻
+        </a>
+      </div>
     </ion-content>
+
+    <!-- disclaimer -->
+    <the-disclaimer v-show="isDisclaimerVisible" @close="closeDisclaimer">
+      <template v-slot:header>
+        <h2>Disclaimer</h2>
+      </template>
+      <template #body>
+        <ul class="custom-bullet">
+          <br />
+
+          <li>
+            AskLlama is an artificial intelligence program that doesn’t take
+            itself too seriously. Hope you don't too 🙂 🙃
+          </li>
+          <br />
+          <li>
+            As much as we love our AskLlama characters, they are not the
+            originals but only representations. Don't worry though, they still
+            have all the personality and charm of the original Masters 😎
+          </li>
+          <br />
+          <li>
+            AskLlama responses are for informational purposes only and should
+            not be treated as sage advice. So, if you're looking to quit your
+            job and become a llama herder because of something we said, maybe
+            double check with an actual professional first.
+          </li>
+          <br />
+          <li>
+            AskLlama may occasionally provide inaccurate information or use
+            humour (our best quality obviously) that may not be everyone’s cup
+            of tea.
+          </li>
+          <br />
+
+          <br />
+          <p>
+            Ask away, but don't sue us if it gets sassy! We're just a bunch of
+            llamas trying to make your day a little brighter!
+          </p>
+        </ul>
+        <br />
+      </template>
+      <br />
+      <br />
+    </the-disclaimer>
+
+    <PrivacyPolicy ref="privacyPolicy" />
+    <Rating ref="rating" class="rating_" />
+    <Feedback ref="feedback" />
   </ion-page>
 </template>
 
 <script>
 import Chatbox from "@/views/Chatbox.vue";
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonMenuButton, IonButtons } from '@ionic/vue';
+import TheDisclaimer from "./TheDisclaimer.vue";
+import Feedback from "../views/Feedback.vue";
+import Rating from "../views/Rating.vue";
+import PrivacyPolicy from "../views/Privacy.vue";
+import emitter from "../event-bus";
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonMenuButton,
+  IonButtons,
+  IonList,
+  IonItem,
+  IonLabel,
+  menuController,
+} from "@ionic/vue";
+
 export default {
   components: {
-    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonMenuButton, IonButtons, Chatbox
+    IonContent,
+    IonHeader,
+    IonPage,
+    IonTitle,
+    IonToolbar,
+    IonMenuButton,
+    IonButtons,
+    IonList,
+    IonItem,
+    IonLabel,
+    Chatbox,
+    TheDisclaimer,
+    Feedback,
+    Rating,
+    PrivacyPolicy,
+    menuController,
+  },
+  created() {
+    emitter.on("updateSelectedMasters", (selectedMasters) => {
+      this.selectedMasters = selectedMasters;
+    });
   },
   data() {
     return {
-      selectedMasters: [{
-          name: "Krishna",
-          image: "https://cdn.pixabay.com/photo/2023/06/23/08/51/lord-krishna-8083043_1280.png",
-          selected: false,
-          prompt:
-            "You are Lord Krishna, known for your teachings on righteousness, action, and devotion in the Bhagavad Gita, and your playful nature. Answer the question below as Lord Krishna would, in a first person voice.",
-        }],
+      isDisclaimerVisible: true,
+      selectedMasters: [],
+    };
+  },
+  computed: {
+    shouldShowAddButton() {
+      return (
+        this.selectedMasters.length !== 5 && this.selectedMasters.length > 0
+      );
+    },
+  },
 
-    }
-  }
-}
+  methods: {
+    async navigateTo(path) {
+      this.$router.push(path);
+      await menuController.toggle();
+    },
+    showDisclaimer() {
+      this.isDisclaimerVisible = true;
+    },
+    closeDisclaimer() {
+      this.isDisclaimerVisible = false;
+    },
+    async showRating() {
+      this.$refs.rating.show();
+      await menuController.toggle();
+    },
+    async showPrivacyPolicy() {
+      this.$refs.privacyPolicy.show();
+      await menuController.toggle();
+    },
+    async showFeedback() {
+      this.$refs.feedback.show();
+      await menuController.toggle();
+    },
+    removeMaster(index) {
+      this.selectedMasters.splice(index, 1);
+    },
+  },
+};
 </script>
 
 <style scoped>
+ion-menu {
+  width: 100%;
+}
+
+.menu-header {
+  padding: 0vh;
+  cursor: pointer;
+  --background: #fff;
+}
+.about-us {
+  text-decoration: none;
+  color: #f07812;
+  font-size: 1.3rem;
+}
+.about-us:hover {
+  color: black;
+}
+ion-menu-button {
+  color: black;
+  font-size: 3rem;
+}
+.ion-no-border {
+  padding: 5px;
+}
+
+.ion-no-border-menu {
+  padding-left: 5px;
+  padding-top: 5px;
+}
+.ion-toolbar-header {
+  padding: 8px;
+}
+.back-button {
+  padding: 0;
+  margin: 0;
+  width: 27px;
+  height: 25px;
+}
+.footer-link {
+  text-decoration: none;
+  color: black;
+}
+.footer {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  left: 0;
+  text-align: center;
+  font-size: 1rem;
+}
+
+ion-label {
+  color: #f07812;
+}
+.header-logo {
+  border-radius: 100%;
+  width: 60px;
+}
+.main-title {
+  font-size: 1.9rem;
+  color: white;
+}
+
+.header-title {
+  margin: auto;
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
+  --background: #f07812;
+}
+
+ion-item {
+  cursor: pointer;
+}
+
+h2 {
+  font-family: "Trebuchet MS", sans-serif;
+}
 ion-toolbar {
-  --background: #F07812;
+  --background: #f07812;
   --color: #fff;
   --min-height: 60px;
- 
 }
+
+.chatbox-homepage {
+  margin-top: 25px;
+  height: 65vh;
+  overflow-y: auto;
+}
+.remove_master_button {
+  margin-left: auto;
+  text-align: right;
+  font-weight: bold;
+  visibility: hidden;
+  height: 10px;
+  width: 10px;
+  font-size: 1.3rem;
+  position: relative;
+  bottom: 6px;
+  left: 5px;
+}
+.selected-masters-container {
+  max-width: 100%;
+  height: 8vh;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+
+.master-content:hover .remove_master_button {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.selected-masters {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 10px;
+}
+
+.master-info {
+  margin: 5px;
+  text-align: center;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.master-content {
+  text-align: center;
+}
+.back-button {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.selected-masters img {
+  border-radius: 50%;
+  max-width: 40px;
+  height: auto;
+  border: #f07812 solid;
+  cursor: pointer;
+}
+.add_button {
+  cursor: pointer;
+  font-size: 2rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  margin-top: 6px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 0px 8px;
+  display: none;
+  font-weight: bold;
+}
+.show_add_button {
+  display: block;
+}
+.add_button p {
+  border-radius: 50%;
+  position: relative;
+  left: 11px;
+  bottom: 1px;
+}
+ion-page {
+  font-family: "Trebuchet MS", sans-serif;
+}
+
 .subtitle {
-  font-size: 60%;
+  font-size: 1.11rem;
   color: black;
 }
 
-.header-logo {
-  border-radius: 100%;
-  width: 50px;
-  height: auto;
-  position: relative;
-  left: 37%;
-  bottom: auto;
-  text-align:center;
+ul.custom-bullet {
+  list-style-type: none;
+}
+
+ul.custom-bullet li::before {
+  content: "•";
+  color: black;
+  font-weight: bold;
+}
+.empty-masters-message {
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 1rem;
 }
 
 @media (max-width: 767px) {
   .header-logo {
     display: none;
   }
-} 
+  textarea {
+    width: 95%;
+  }
+  .header-title {
+    width: 300px;
+  }
+  .main-title {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 0.9rem;
+    color: black;
+  }
+
+  .chatbox-homepage {
+    height: 68.5vh;
+  }
+  .selected-masters-container {
+    height: 7vh;
+  }
+
+  .selected-masters {
+    height: 7vh;
+  }
+  .footer {
+    font-size: 0.9rem;
+    bottom: 8px;
+  }
+}
 </style>
