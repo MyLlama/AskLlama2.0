@@ -18,7 +18,8 @@
                 :alt="message.author"
                 class="message-avatar"
               />
-              <img v-else :src="userAvatar" alt="User" class="message-avatar" />
+             
+              <img v-else src="/src/assets/user.jpeg" alt="User" class="message-avatar" />
               <div class="pre-wrap">{{ message.text }}</div>
             </div>
           </div>
