@@ -253,6 +253,7 @@ ion-menu {
   text-decoration: none;
   color: #f07812;
   font-size: 1.3rem;
+  padding-left: 1.2rem;
 }
 .about-us:hover {
   color: black;
