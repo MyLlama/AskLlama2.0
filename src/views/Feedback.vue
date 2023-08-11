@@ -27,7 +27,6 @@
         <br />
         <p>Thank you for Your Valuable Feedback! 🌻</p>
         <br />
-        <br />
         <img class="logo-llama" src="../assets/llama-lgo.png" />
       </div>
     </template>
@@ -46,7 +45,7 @@ export default {
       isVisible: false,
       thankYouMessage: false,
       modalWidth: "26%",
-      modalHeight: "52vh",
+      modalHeight: "60vh",
     };
   },
   methods: {
@@ -76,7 +75,8 @@ export default {
   flex-direction: column;
   gap: 10px;
   margin: auto;
-  width: 95%;
+  width: 99%;
+  padding: 10px;
 }
 input {
   padding: 10px;

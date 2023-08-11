@@ -54,7 +54,7 @@ export default {
 
 .modal {
   width: 50%;
-  height: 50vh;
+  height: 56vh;
   z-index: 100;
   border: none;
   background: #ffffff;

@@ -49,6 +49,7 @@
       @update:is-open="showAlert = $event"
       header="Selection Limit Reached"
       message="You can only select up to 5 masters."
+      backdrop-dismiss="false"
       :buttons="[
         {
           text: 'OK',
@@ -438,10 +439,16 @@ ion-back-button {
 }
 @media (max-width: 767px) {
   .master {
-    margin: 10px 11px;
+    margin: 10px 4px;
   }
   .master-header-name {
     font-size: 1.7rem;
+  }
+  .button-87 {
+    width: 60vw;
+  }
+  .done-button {
+    right: 19%;
   }
 }
 </style>

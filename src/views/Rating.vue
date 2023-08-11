@@ -10,6 +10,8 @@
     </template>
     <template #body>
       <div v-if="!thankYouMessage" class="rating-container">
+        <br />
+
         <h5>How would you rate this product?</h5>
         <br />
 
@@ -60,7 +62,7 @@ export default {
       currentRating: 0,
       thankYouMessage: false,
       modalWidth: "26%",
-      modalHeight: "47vh",
+      modalHeight: "55vh",
       regularStarImageUrl: star,
       filledStarImageUrl: star1,
     };
@@ -115,7 +117,7 @@ export default {
 textarea {
   background-color: white;
   padding: 10px;
-  width: 400px;
+  width: 80%;
   height: 100px;
   text-decoration: none;
   border: none;
