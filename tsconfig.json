@@ -15,10 +15,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "allowJs": true,
-    "types": [
-      "webpack-env"
-    ],
+    "allowJs": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
