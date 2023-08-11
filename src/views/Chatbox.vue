@@ -134,8 +134,9 @@ export default {
     async getGptResponse(prompt, master) {
       console.log("Getting GPT response for prompt:", prompt);
       // Use the environment variable
-
-      const apiKey = process.env.VUE_APP_OPENAI_API_KEY;
+      
+      const apiKey = import.meta.env.VITE_APP_OPENAI_API_KEY;
+      console.log(apiKey);
       const apiEndpoint = "https://api.openai.com/v1/chat/completions";
       const headers = {
         "Content-Type": "application/json",
@@ -170,11 +171,9 @@ export default {
         console.error("Error calling ChatGPT API:", error);
         return "Sorry, I am unable to provide an answer at the moment.";
       } finally {
-        const container = this.$refs.messagesContainer;
-        container.scrollTop = container.scrollHeight;
-        var objDiv = document.getElementsByClassName("messages");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
+      
     },
 
     scrollToBottom() {
@@ -227,6 +226,7 @@ export default {
           type: "master",
         };
         this.messages.push(masterResponse);
+        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end' });
       }
 
       this.loading = false; // Add this line
@@ -330,6 +330,8 @@ ion-icon {
   border-radius: 20px;
   padding: 15px;
   background-color: #fff;
+  max-width: 70%;
+  margin-bottom: 10px;
 }
 
 .messages {

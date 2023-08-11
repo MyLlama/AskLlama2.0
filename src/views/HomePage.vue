@@ -163,11 +163,13 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonMenu,
   IonMenuButton,
   IonButtons,
   IonList,
   IonItem,
   IonLabel,
+  IonMenuToggle,
   menuController,
 } from "@ionic/vue";
 
@@ -178,7 +180,9 @@ export default {
     IonPage,
     IonTitle,
     IonToolbar,
+    IonMenu,
     IonMenuButton,
+    IonMenuToggle,
     IonButtons,
     IonList,
     IonItem,
@@ -201,7 +205,10 @@ export default {
       selectedMasters: [],
     };
   },
-  computed: {
+  unmounted() {
+    emitter.off("updateSelectedMasters");
+  },
+    computed: {
     shouldShowAddButton() {
       return (
         this.selectedMasters.length !== 5 && this.selectedMasters.length > 0
@@ -219,6 +226,7 @@ export default {
     },
     closeDisclaimer() {
       this.isDisclaimerVisible = false;
+      this.$router.push('/master');
     },
     async showRating() {
       this.$refs.rating.show();
