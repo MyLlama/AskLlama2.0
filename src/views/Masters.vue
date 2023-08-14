@@ -43,22 +43,6 @@
         </button>
       </div>
     </ion-content>
-
-    <ion-alert
-      :is-open="showAlert"
-      @update:is-open="showAlert = $event"
-      header="Selection Limit Reached"
-      message="You can only select up to 5 masters."
-      backdrop-dismiss="false"
-      :buttons="[
-        {
-          text: 'OK',
-          handler: () => {
-            this.showAlert = false;
-          },
-        },
-      ]"
-    ></ion-alert>
   </ion-page>
 </template>
 
@@ -74,7 +58,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonAlert,
+  toastController
 } from "@ionic/vue";
 
 import { save, chevronBackOutline } from "ionicons/icons";
@@ -111,7 +95,6 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    IonAlert,
   },
 
   data() {
@@ -282,10 +265,9 @@ export default defineComponent({
 
   methods: {
     goToHomePage() {
-      console.log("shvam");
       this.$router.push("/home");
     },
-    toggleMasterSelection(master) {
+    async toggleMasterSelection(master) {
       if (master.selected) {
         master.selected = false;
         const index = this.selectedMasters.findIndex(
@@ -296,7 +278,15 @@ export default defineComponent({
         }
       } else {
         if (this.selectedMasters.length >= 5) {
-          this.showAlert = true;
+          const toast = await toastController.create({
+            message: 'You can only select up to 5 masters.',
+            duration: 3000,
+            position: 'top',
+            translucent: true,
+            cssClass: 'toast'
+          });
+
+          await toast.present();
           return;
         }
         master.selected = true;
@@ -304,9 +294,22 @@ export default defineComponent({
       }
     },
 
+    async presentToast() {
+        const toast = await toastController.create({
+          message: 'Select at least one master!!',
+          duration: 3000,
+          position: 'top',
+          translucent: true,
+          cssClass: 'toast'
+        });
+
+        await toast.present();
+      },
+
     saveSelectedMasters() {
       emitter.emit("updateSelectedMasters", this.selectedMasters);
-      this.$router.push("/home");
+      if(this.selectedMasters.length) this.$router.push("/home");
+      else this.presentToast();
     },
   },
   setup() {
@@ -318,6 +321,11 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+
+.toast  {
+  background-color: #000!important;
+  color: white;
+}
 ion-toolbar {
   --background: #f07812;
   --color: white;

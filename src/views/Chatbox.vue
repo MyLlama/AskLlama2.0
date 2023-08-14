@@ -35,14 +35,14 @@
         class="question-input"
         v-model="inputMessage"
         @input="validateInput"
-        @keyup.enter="sendMessage"
+        @keyup.enter="sendMessage(); scrollToBottom();"
         placeholder="How do I find peace in the middle of chaos ?"
         ref="questionInput"
         :title="showHover ? 'Select at least one master to ask a question' : ''"
         v-on:input="validateInput"
         v-on:focus="validateInput"
       />
-      <ion-button>
+      <ion-button @click="sendMessage">
         <ion-icon :icon="paperPlaneOutline"></ion-icon>
       </ion-button>
 
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { IonButton, IonIcon, IonMenu, IonBackButton } from "@ionic/vue";
+import { IonButton, IonIcon, IonMenu, IonBackButton, toastController } from "@ionic/vue";
 import { paperPlaneOutline } from "ionicons/icons";
 import user from "../assets/user.jpeg";
 import axios from "axios";
@@ -172,30 +172,31 @@ export default {
         console.error("Error calling ChatGPT API:", error);
         return "Sorry, I am unable to provide an answer at the moment.";
       } finally {
-        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end' });
+        this.scrollToBottom();
       }
       
     },
 
     scrollToBottom() {
-      this.$nextTick(() => {
-        const container = this.$refs.messagesContainer;
-        container.scrollTop = container.scrollHeight;
-      });
+        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end',  inline: "nearest" });
     },
 
     async sendMessage() {
+      if(!this.selectedMastersCount){
+        const toast = await toastController.create({
+          message: 'Select at least one master to continue!',
+          duration: 3000,
+          position: 'top',
+          translucent: true,
+          cssClass: 'toast'
+        });
+
+        await toast.present();
+        return;
+      }  
       if (!this.inputMessage) {
         return;
       }
-
-      if (!this.selectedMasters.length) {
-        this.showHover = true;
-        return;
-      }
-
-      // Clear the error message and send the message
-      this.showHover = false;
 
       // if (!this.inputMessage || !this.selectedMasters.length) return;
 
@@ -227,15 +228,18 @@ export default {
           type: "master",
         };
         this.messages.push(masterResponse);
-        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end' });
+        this.scrollToBottom();
       }
 
       this.loading = false; // Add this line
     },
   },
   watch: {
-    messages() {
-      this.scrollToBottom();
+    messages: {
+      handler (after, before){
+        this.scrollToBottom();
+      }, 
+      deep: true
     },
 
     selectedMasters: {
@@ -267,6 +271,7 @@ ion-button {
   bottom: 5.5%;
   right: 3%;
   z-index: 1000000;
+  border-radius: 100%;
 }
 ion-icon {
   color: black;
@@ -291,15 +296,14 @@ ion-icon {
 .clear-chat-button-img {
   height: 20px;
   position: fixed;
-  top: 9.6%;
-  right: 1%;
+  top: 10%;
+  right: 10px;
 }
 
 .chat-container {
   display: flex;
   align-items: flex-end;
-  margin: 6px 0.5%;
-
+  margin: 15px 2.5%;
   line-height: 2.5vh;
 }
 
@@ -332,7 +336,6 @@ ion-icon {
   padding: 15px;
   background-color: #fff;
   max-width: 70%;
-  margin-bottom: 10px;
 }
 
 .messages {

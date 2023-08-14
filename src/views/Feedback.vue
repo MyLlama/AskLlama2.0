@@ -2,8 +2,6 @@
   <the-disclaimer
     v-show="isVisible"
     @close="close"
-    :modalWidth="modalWidth"
-    :modalHeight="modalHeight"
   >
     <template v-slot:header>
       <h2>Feedback</h2>
@@ -44,8 +42,6 @@ export default {
     return {
       isVisible: false,
       thankYouMessage: false,
-      modalWidth: "26%",
-      modalHeight: "60vh",
     };
   },
   methods: {

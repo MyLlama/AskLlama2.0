@@ -59,12 +59,12 @@
         <div class="selected-masters" v-if="selectedMasters.length > 0">
           <div
             class="master-info"
-            v-for="master in selectedMasters"
+            v-for="(master, index) in selectedMasters"
             :key="master"
           >
             <div class="master-content" @click="toggleRemoveButton(master)">
               <p
-                @click.stop="removeMaster(master)"
+                @click.stop="removeMaster(index)"
                 class="remove_master_button"
               >
                 ×
@@ -73,16 +73,12 @@
             </div>
           </div>
           <div
-            @click="navigateTo('/master')"
+            @click="this.$router.push('/master')"
             class="add_button"
             :class="{ show_add_button: shouldShowAddButton }"
           >
             <p>+</p>
           </div>
-        </div>
-
-        <div v-else class="empty-masters-message">
-          Select at least one master 🌻
         </div>
       </div>
 
@@ -433,12 +429,6 @@ ul.custom-bullet li::before {
   content: "•";
   color: black;
   font-weight: bold;
-}
-.empty-masters-message {
-  margin: auto;
-  text-align: center;
-  padding: 10px;
-  font-size: 1rem;
 }
 
 @media (max-width: 767px) {
