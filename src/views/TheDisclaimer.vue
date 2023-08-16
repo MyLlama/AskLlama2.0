@@ -63,7 +63,6 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 30px;
-  font-family: "Trebuchet MS", sans-serif;
 }
 
 .modal-header {

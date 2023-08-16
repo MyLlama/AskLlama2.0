@@ -311,9 +311,6 @@ ion-item {
   cursor: pointer;
 }
 
-h2 {
-  font-family: "Trebuchet MS", sans-serif;
-}
 ion-toolbar {
   --background: #f07812;
   --color: #fff;
@@ -321,10 +318,8 @@ ion-toolbar {
 }
 
 .chatbox-homepage {
-  margin-top: 25px;
+  margin-top: 40px;
   height: fit-content;
-  /* height: 65vh; */
-  /* overflow-y: auto; */
 }
 .remove_master_button {
   margin-left: auto;
@@ -397,9 +392,7 @@ ion-toolbar {
   border-radius: 50%;
   text-align: center;
 }
-ion-page {
-  font-family: "Trebuchet MS", sans-serif;
-}
+
 
 .subtitle {
   font-size: 1.11rem;
@@ -434,9 +427,6 @@ ul.custom-bullet li::before {
     color: black;
   }
 
-  /* .chatbox-homepage {
-    height: 68.5vh;
-  } */
   .selected-masters-container {
     height: 8vh;
   }

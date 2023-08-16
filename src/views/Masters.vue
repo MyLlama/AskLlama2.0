@@ -400,7 +400,6 @@ ion-back-button {
   display: flex;
   background-color: #f07812;
   color: white;
-  font-family: "Trebuchet MS", sans-serif;
 }
 .master-header h1 {
   margin: auto;
@@ -441,7 +440,6 @@ ion-back-button {
 .master-header-name {
   padding-left: 20px;
   color: #f07812;
-  font-family: "Trebuchet MS", sans-serif;
   font-size: 2rem;
 }
 @media (max-width: 767px) {
