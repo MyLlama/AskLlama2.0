@@ -63,10 +63,7 @@
             :key="master"
           >
             <div class="master-content" @click="toggleRemoveButton(master)">
-              <p
-                @click.stop="removeMaster(index)"
-                class="remove_master_button"
-              >
+              <p @click.stop="removeMaster(index)" class="remove_master_button">
                 ×
               </p>
               <img :src="master.image" :alt="master.name" />
@@ -75,7 +72,7 @@
           <div
             @click="this.$router.push('/master')"
             class="add_button"
-            v-if="selectedMasters.length<5"
+            v-if="selectedMasters.length < 5"
           >
             <p>+</p>
           </div>
@@ -152,7 +149,7 @@ import TheDisclaimer from "./TheDisclaimer.vue";
 import Feedback from "../views/Feedback.vue";
 import Rating from "../views/Rating.vue";
 import PrivacyPolicy from "../views/Privacy.vue";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 import {
   IonContent,
@@ -198,8 +195,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedMasters: 'getSelectedMasters'
-    })
+      selectedMasters: "getSelectedMasters",
+    }),
   },
   methods: {
     async navigateTo(path) {
@@ -211,7 +208,7 @@ export default {
     },
     closeDisclaimer() {
       this.isDisclaimerVisible = false;
-      this.$router.push('/master');
+      this.$router.push("/master");
     },
     async showRating() {
       this.$refs.rating.show();
@@ -227,7 +224,7 @@ export default {
     },
     removeMaster(index) {
       this.selectedMasters.splice(index, 1);
-      this.$store.commit('updateSelectedMasters', this.selectedMasters);
+      this.$store.commit("updateSelectedMasters", this.selectedMasters);
     },
   },
 };
@@ -321,9 +318,7 @@ ion-toolbar {
 }
 
 .chatbox-homepage {
-  margin-top: 25px;
-  height: 65vh;
-  /* overflow-y: auto; */
+  margin-top: 33px;
 }
 .remove_master_button {
   margin-left: auto;

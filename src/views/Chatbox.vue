@@ -46,7 +46,6 @@
         "
         placeholder="How do I find peace in the middle of chaos ?"
         ref="questionInput"
-        :title="showHover ? 'Select at least one master to ask a question' : ''"
         v-on:input="validateInput"
         v-on:focus="validateInput"
       />
@@ -56,7 +55,7 @@
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
       <button @click="clearChat">
-        <img class="clear-chat-button-img" src="../assets/dustbin.png" />
+        <img src="../assets/dustbin.png" />
       </button>
     </div>
   </div>
@@ -163,13 +162,11 @@ export default {
     },
 
     scrollToBottom() {
-      document
-        .getElementsByClassName("messages")[0]
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "end",
-          inline: "nearest",
-        });
+      document.getElementsByClassName("messages")[0].scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
     },
 
     async sendMessage() {
@@ -289,18 +286,19 @@ ion-icon {
 .question-input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
-
-.clear-chat-button-img {
-  height: 20px;
+.clear-chat-button {
   position: fixed;
   top: 10%;
-  right: 10px;
+  right: 13px;
+}
+.clear-chat-button-img {
 }
 
 .chat-container {
   display: flex;
-  margin: 6px 0.5%;
+  margin: 6px 2%;
   line-height: 2.5vh;
+  border: 1px solid red;
 }
 
 .user-message {
@@ -324,10 +322,9 @@ ion-icon {
 .chatbox-content {
   height: 70vh;
   overflow: hidden;
+  border: 1px solid red;
 }
-.chatbox {
-  /* border: 2px solid red; */
-}
+
 .pre-wrap {
   text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
