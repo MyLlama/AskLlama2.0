@@ -273,6 +273,12 @@ ion-button {
   z-index: 1000000;
   border-radius: 100%;
 }
+
+ion-button .button-native {
+  border-radius: 100% !important;
+  padding: 0!important;
+}
+
 ion-icon {
   color: black;
 }

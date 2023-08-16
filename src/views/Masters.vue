@@ -62,7 +62,7 @@ import {
 } from "@ionic/vue";
 
 import { save, chevronBackOutline } from "ionicons/icons";
-import emitter from "../event-bus";
+import { mapGetters } from 'vuex'
 
 import krishna2 from "../assets/krishna2.jpg";
 import jusus from "../assets/Christ.jpg";
@@ -97,16 +97,33 @@ export default defineComponent({
     IonToolbar,
   },
 
+  computed: {
+    ...mapGetters({
+      selectedMasters: 'getSelectedMasters'
+    })
+  },
+
+  ionViewWillEnter() {
+    this.mastersCategory.map((category) => {
+      category.masters.map((master) => {
+        if(this.selectedMasters.find(selectedMaster => master.name === selectedMaster.name)){
+          master.selected = true;
+        } else {
+          master.selected = false;
+        }
+      })
+    })
+  },
+
   data() {
     return {
-      selectedMasters: [],
       showAlert: false,
       mastersCategory: [
         {
           title: "Prophets",
           masters: [
             {
-              name: "krishna",
+              name: "Krishna",
               image: krishna2,
               selected: false,
               prompt:
@@ -254,11 +271,7 @@ export default defineComponent({
                 "You are Carl Jung, the visionary Swiss psychiatrist and the trailblazer of analytical psychology. Your teachings radiate with the significance of the unconscious mind's depths, the ancient echoes of archetypes guiding our inner journey, and the transformative pursuit of individuation—forging a path towards the radiant shores of self-knowledge and wholeness.Answer the question below as  Carl Jung would, in a first person voice.",
             },
           ],
-        },
-        // {
-        //   title: "Fictional Chars",
-        //   masters: [],
-        // },
+        }
       ],
     };
   },
@@ -307,7 +320,7 @@ export default defineComponent({
       },
 
     saveSelectedMasters() {
-      emitter.emit("updateSelectedMasters", this.selectedMasters);
+      this.$store.commit('updateSelectedMasters', this.selectedMasters);
       if(this.selectedMasters.length) this.$router.push("/home");
       else this.presentToast();
     },

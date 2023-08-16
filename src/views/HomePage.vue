@@ -56,7 +56,7 @@
 
     <ion-content :fullscreen="true" id="main-content">
       <div class="selected-masters-container">
-        <div class="selected-masters" v-if="selectedMasters.length > 0">
+        <div class="selected-masters">
           <div
             class="master-info"
             v-for="(master, index) in selectedMasters"
@@ -75,7 +75,7 @@
           <div
             @click="this.$router.push('/master')"
             class="add_button"
-            :class="{ show_add_button: shouldShowAddButton }"
+            v-if="selectedMasters.length<5"
           >
             <p>+</p>
           </div>
@@ -152,7 +152,8 @@ import TheDisclaimer from "./TheDisclaimer.vue";
 import Feedback from "../views/Feedback.vue";
 import Rating from "../views/Rating.vue";
 import PrivacyPolicy from "../views/Privacy.vue";
-import emitter from "../event-bus";
+import { mapGetters } from 'vuex'
+
 import {
   IonContent,
   IonHeader,
@@ -190,28 +191,16 @@ export default {
     PrivacyPolicy,
     menuController,
   },
-  created() {
-    emitter.on("updateSelectedMasters", (selectedMasters) => {
-      this.selectedMasters = selectedMasters;
-    });
-  },
   data() {
     return {
       isDisclaimerVisible: true,
-      selectedMasters: [],
     };
   },
-  unmounted() {
-    emitter.off("updateSelectedMasters");
+  computed: {
+    ...mapGetters({
+      selectedMasters: 'getSelectedMasters'
+    })
   },
-    computed: {
-    shouldShowAddButton() {
-      return (
-        this.selectedMasters.length !== 5 && this.selectedMasters.length > 0
-      );
-    },
-  },
-
   methods: {
     async navigateTo(path) {
       this.$router.push(path);
@@ -238,6 +227,7 @@ export default {
     },
     removeMaster(index) {
       this.selectedMasters.splice(index, 1);
+      this.$store.commit('updateSelectedMasters', this.selectedMasters);
     },
   },
 };
@@ -400,17 +390,11 @@ ion-toolbar {
   margin-top: 6px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
-  display: none;
   font-weight: bold;
-}
-.show_add_button {
-  display: block;
 }
 .add_button p {
   border-radius: 50%;
-  position: relative;
-  left: 11px;
-  bottom: 1px;
+  text-align: center;
 }
 ion-page {
   font-family: "Trebuchet MS", sans-serif;
