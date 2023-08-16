@@ -45,12 +45,12 @@
         <ion-icon :icon="paperPlaneOutline"></ion-icon>
       </ion-button>
 
-      <div
+      <!-- <div
         v-if="showHover && touchedInput && errorMessageVisible"
         class="error-message"
       >
         Select the master to ask a question !!
-      </div>
+      </div> -->
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
       <button @click="clearChat">
@@ -91,29 +91,29 @@ export default {
       userAvatar: user,
       loading: false,
       conversationHistory: [],
-      touchedInput: false,
-      showHover: false,
-      errorMessageVisible: false,
+      // touchedInput: false,
+      // showHover: false,
+      // errorMessageVisible: false,
     };
   },
   methods: {
-    showErrorMessage() {
-      this.errorMessageVisible = true;
+    // showErrorMessage() {
+    //   this.errorMessageVisible = true;
 
-      setTimeout(() => {
-        this.errorMessageVisible = false;
-      }, 2000);
-    },
-    validateInput() {
-      this.touchedInput = true;
-      this.showHover =
-        this.inputMessage.trim().length > 0 &&
-        this.selectedMasters.length === 0;
+    //   setTimeout(() => {
+    //     this.errorMessageVisible = false;
+    //   }, 2000);
+    // },
+    // validateInput() {
+    //   this.touchedInput = true;
+    //   this.showHover =
+    //     this.inputMessage.trim().length > 0 &&
+    //     this.selectedMasters.length === 0;
 
-      if (this.showHover) {
-        this.showErrorMessage();
-      }
-    },
+    //   if (this.showHover) {
+    //     this.showErrorMessage();
+    //   }
+    // },
 
     clearChat() {
       this.messages = [];
@@ -296,9 +296,7 @@ ion-icon {
 
 .chat-container {
   display: flex;
-  align-items: flex-end;
   margin: 6px 0.5%;
-
   line-height: 2.5vh;
 }
 
@@ -315,15 +313,18 @@ ion-icon {
 }
 
 .message-avatar {
-  height: 45px;
+  height: 35px;
   border-radius: 100%;
-  align-items: flex-end;
+  margin-top: 7px;
 }
 
 .chatbox-content {
-  height: 100%;
+  height: 70vh;
+  overflow: hidden;
 }
-
+.chatbox {
+  /* border: 2px solid red; */
+}
 .pre-wrap {
   text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -334,6 +335,8 @@ ion-icon {
 
 .messages {
   margin-bottom: 10% !important;
+  max-height: calc(100% - 40px);
+  overflow-y: scroll;
 }
 .spinner {
   display: flex;
@@ -349,6 +352,7 @@ ion-icon {
 @media (max-width: 767px) {
   .message-avatar {
     height: 30px;
+    margin-top: 10px;
   }
   input::placeholder {
     font-size: 0.8rem;
@@ -356,6 +360,16 @@ ion-icon {
   .chat-container {
     margin: 6px 3%;
     font-size: 0.8rem;
+  }
+  .messages {
+    margin-bottom: 10% !important;
+    max-height: calc(100% - 10px);
+    overflow-y: scroll;
+  }
+}
+@media (max-width: 300px) {
+  input::placeholder {
+    font-size: 0.6rem;
   }
 }
 </style>

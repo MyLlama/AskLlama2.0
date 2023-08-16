@@ -19,21 +19,21 @@
             >
           </ion-item>
 
-          <ion-item lines="none" @click="showFeedback">
+          <!-- <ion-item lines="none" @click="showFeedback">
             <ion-label class="about-us">Feedback</ion-label>
-          </ion-item>
+          </ion-item> -->
 
-          <ion-item lines="none" @click="navigateTo('/home')">
+          <!-- <ion-item lines="none" @click="navigateTo('/home')">
             <ion-label class="about-us">Share</ion-label>
-          </ion-item>
+          </ion-item> -->
 
           <ion-item lines="none" @click="showPrivacyPolicy">
             <ion-label class="about-us">Privacy Policy</ion-label>
           </ion-item>
 
-          <ion-item lines="none" @click="showRating">
+          <!-- <ion-item lines="none" @click="showRating">
             <ion-label class="about-us">Rate Us</ion-label>
-          </ion-item>
+          </ion-item> -->
         </ion-list>
       </ion-content>
     </ion-menu>
@@ -267,7 +267,7 @@ ion-menu-button {
 }
 
 .ion-no-border-menu {
-  padding-left: 5px;
+  padding-left: 2px;
   padding-top: 5px;
 }
 .ion-toolbar-header {
@@ -276,8 +276,9 @@ ion-menu-button {
 .back-button {
   padding: 0;
   margin: 0;
-  width: 27px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
+  /* border: #f07812 solid; */
 }
 .footer-link {
   text-decoration: none;
@@ -306,7 +307,7 @@ ion-label {
 
 .header-title {
   margin: auto;
-  width: 500px;
+  width: 550px;
   display: flex;
   justify-content: space-around;
   --background: #f07812;
@@ -328,7 +329,7 @@ ion-toolbar {
 .chatbox-homepage {
   margin-top: 25px;
   height: 65vh;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 .remove_master_button {
   margin-left: auto;
@@ -397,7 +398,6 @@ ion-toolbar {
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
   display: none;
-  font-weight: bold;
 }
 .show_add_button {
   display: block;
@@ -455,7 +455,7 @@ ul.custom-bullet li::before {
     height: 68.5vh;
   }
   .selected-masters-container {
-    height: 7vh;
+    height: 8vh;
   }
 
   .selected-masters {
@@ -464,6 +464,45 @@ ul.custom-bullet li::before {
   .footer {
     font-size: 0.9rem;
     bottom: 8px;
+  }
+}
+
+@media (max-width: 380px) {
+  .header-title {
+    width: 250px;
+  }
+  .main-title {
+    font-size: 1.2rem;
+  }
+  .subtitle {
+    font-size: 0.7rem;
+    color: black;
+  }
+  .ion-toolbar-header {
+    padding: 0px;
+  }
+  .footer {
+    font-size: 0.8rem;
+    bottom: 8px;
+  }
+}
+
+@media (max-width: 300px) {
+  .footer {
+    font-size: 0.6rem;
+    bottom: px;
+  }
+}
+@media (max-width: 250px) {
+  .header-title {
+    width: 200px;
+  }
+  .main-title {
+    font-size: 1rem;
+  }
+  .subtitle {
+    font-size: 0.5rem;
+    color: black;
   }
 }
 </style>
