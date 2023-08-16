@@ -18,7 +18,8 @@
                 :alt="message.author"
                 class="message-avatar"
               />
-              <img v-else :src="userAvatar" alt="User" class="message-avatar" />
+             
+              <img v-else src="../assets/user.jpg" alt="User" class="message-avatar" />
               <div class="pre-wrap">{{ message.text }}</div>
             </div>
           </div>
@@ -34,14 +35,14 @@
         class="question-input"
         v-model="inputMessage"
         @input="validateInput"
-        @keyup.enter="sendMessage"
+        @keyup.enter="sendMessage(); scrollToBottom();"
         placeholder="How do I find peace in the middle of chaos ?"
         ref="questionInput"
         :title="showHover ? 'Select at least one master to ask a question' : ''"
         v-on:input="validateInput"
         v-on:focus="validateInput"
       />
-      <ion-button>
+      <ion-button @click="sendMessage">
         <ion-icon :icon="paperPlaneOutline"></ion-icon>
       </ion-button>
 
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-import { IonButton, IonIcon, IonMenu, IonBackButton } from "@ionic/vue";
+import { IonButton, IonIcon, IonMenu, IonBackButton, toastController } from "@ionic/vue";
 import { paperPlaneOutline } from "ionicons/icons";
 import user from "../assets/user.jpeg";
 import axios from "axios";
@@ -134,8 +135,9 @@ export default {
     async getGptResponse(prompt, master) {
       console.log("Getting GPT response for prompt:", prompt);
       // Use the environment variable
-
-      const apiKey = process.env.VUE_APP_OPENAI_API_KEY;
+      
+      const apiKey = import.meta.env.VITE_APP_OPENAI_API_KEY;
+      console.log(apiKey);
       const apiEndpoint = "https://api.openai.com/v1/chat/completions";
       const headers = {
         "Content-Type": "application/json",
@@ -170,32 +172,31 @@ export default {
         console.error("Error calling ChatGPT API:", error);
         return "Sorry, I am unable to provide an answer at the moment.";
       } finally {
-        const container = this.$refs.messagesContainer;
-        container.scrollTop = container.scrollHeight;
-        var objDiv = document.getElementsByClassName("messages");
-        objDiv.scrollTop = objDiv.scrollHeight;
+        this.scrollToBottom();
       }
+      
     },
 
     scrollToBottom() {
-      this.$nextTick(() => {
-        const container = this.$refs.messagesContainer;
-        container.scrollTop = container.scrollHeight;
-      });
+        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end',  inline: "nearest" });
     },
 
     async sendMessage() {
+      if(!this.selectedMastersCount){
+        const toast = await toastController.create({
+          message: 'Select at least one master to continue!',
+          duration: 3000,
+          position: 'top',
+          translucent: true,
+          cssClass: 'toast'
+        });
+
+        await toast.present();
+        return;
+      }  
       if (!this.inputMessage) {
         return;
       }
-
-      if (!this.selectedMasters.length) {
-        this.showHover = true;
-        return;
-      }
-
-      // Clear the error message and send the message
-      this.showHover = false;
 
       // if (!this.inputMessage || !this.selectedMasters.length) return;
 
@@ -227,14 +228,18 @@ export default {
           type: "master",
         };
         this.messages.push(masterResponse);
+        this.scrollToBottom();
       }
 
       this.loading = false; // Add this line
     },
   },
   watch: {
-    messages() {
-      this.scrollToBottom();
+    messages: {
+      handler (after, before){
+        this.scrollToBottom();
+      }, 
+      deep: true
     },
 
     selectedMasters: {
@@ -266,7 +271,14 @@ ion-button {
   bottom: 5.5%;
   right: 3%;
   z-index: 1000000;
+  border-radius: 100%;
 }
+
+ion-button .button-native {
+  border-radius: 100% !important;
+  padding: 0!important;
+}
+
 ion-icon {
   color: black;
 }
@@ -290,8 +302,8 @@ ion-icon {
 .clear-chat-button-img {
   height: 20px;
   position: fixed;
-  top: 9.6%;
-  right: 1%;
+  top: 10%;
+  right: 10px;
 }
 
 .chat-container {
@@ -331,6 +343,7 @@ ion-icon {
   border-radius: 20px;
   padding: 15px;
   background-color: #fff;
+  max-width: 70%;
 }
 
 .messages {

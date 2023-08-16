@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router';
+import { createStore } from 'vuex' 
 
 import { IonicVue } from '@ionic/vue';
 
@@ -23,9 +24,29 @@ import '@ionic/vue/css/display.css';
 /* Theme variables */
 import './theme/variable.css';
 
+const store = createStore({
+  state () {
+    return {
+      selectedMasters: []
+    }
+  },
+  mutations: {
+    updateSelectedMasters (state, masters) {
+      state.selectedMasters = masters;
+    }
+  },
+  getters: {
+    getSelectedMasters (state) {
+      return JSON.parse(JSON.stringify(state.selectedMasters));
+    }
+  }
+})
+
 const app = createApp(App)
   .use(IonicVue)
-  .use(router);
+  .use(router)
+  .use(store);
+
   
 router.isReady().then(() => {
   app.mount('#app');

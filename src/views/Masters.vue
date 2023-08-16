@@ -43,22 +43,6 @@
         </button>
       </div>
     </ion-content>
-
-    <ion-alert
-      :is-open="showAlert"
-      @update:is-open="showAlert = $event"
-      header="Selection Limit Reached"
-      message="You can only select up to 5 masters."
-      backdrop-dismiss="false"
-      :buttons="[
-        {
-          text: 'OK',
-          handler: () => {
-            this.showAlert = false;
-          },
-        },
-      ]"
-    ></ion-alert>
   </ion-page>
 </template>
 
@@ -74,11 +58,11 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  IonAlert,
+  toastController
 } from "@ionic/vue";
 
 import { save, chevronBackOutline } from "ionicons/icons";
-import emitter from "../event-bus";
+import { mapGetters } from 'vuex'
 
 import krishna2 from "../assets/krishna2.jpg";
 import jusus from "../assets/Christ.jpg";
@@ -111,19 +95,35 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    IonAlert,
+  },
+
+  computed: {
+    ...mapGetters({
+      selectedMasters: 'getSelectedMasters'
+    })
+  },
+
+  ionViewWillEnter() {
+    this.mastersCategory.map((category) => {
+      category.masters.map((master) => {
+        if(this.selectedMasters.find(selectedMaster => master.name === selectedMaster.name)){
+          master.selected = true;
+        } else {
+          master.selected = false;
+        }
+      })
+    })
   },
 
   data() {
     return {
-      selectedMasters: [],
       showAlert: false,
       mastersCategory: [
         {
           title: "Prophets",
           masters: [
             {
-              name: "krishna",
+              name: "Krishna",
               image: krishna2,
               selected: false,
               prompt:
@@ -278,10 +278,9 @@ export default defineComponent({
 
   methods: {
     goToHomePage() {
-      console.log("shvam");
       this.$router.push("/home");
     },
-    toggleMasterSelection(master) {
+    async toggleMasterSelection(master) {
       if (master.selected) {
         master.selected = false;
         const index = this.selectedMasters.findIndex(
@@ -292,7 +291,15 @@ export default defineComponent({
         }
       } else {
         if (this.selectedMasters.length >= 5) {
-          this.showAlert = true;
+          const toast = await toastController.create({
+            message: 'You can only select up to 5 masters.',
+            duration: 3000,
+            position: 'top',
+            translucent: true,
+            cssClass: 'toast'
+          });
+
+          await toast.present();
           return;
         }
         master.selected = true;
@@ -300,9 +307,22 @@ export default defineComponent({
       }
     },
 
+    async presentToast() {
+        const toast = await toastController.create({
+          message: 'Select at least one master!!',
+          duration: 3000,
+          position: 'top',
+          translucent: true,
+          cssClass: 'toast'
+        });
+
+        await toast.present();
+      },
+
     saveSelectedMasters() {
-      emitter.emit("updateSelectedMasters", this.selectedMasters);
-      this.$router.push("/home");
+      this.$store.commit('updateSelectedMasters', this.selectedMasters);
+      if(this.selectedMasters.length) this.$router.push("/home");
+      else this.presentToast();
     },
   },
   setup() {
@@ -314,6 +334,11 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+
+.toast  {
+  background-color: #000!important;
+  color: white;
+}
 ion-toolbar {
   --background: #f07812;
   --color: white;

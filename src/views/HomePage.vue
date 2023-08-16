@@ -3,7 +3,7 @@
     <ion-menu side="start" content-id="main-content">
       <ion-toolbar class="menu-header">
         <ion-menu-toggle>
-          <img class="back-button" src="../assets/back button.png" />
+          <img class="back-button" src="../assets/backButton.png" />
         </ion-menu-toggle>
       </ion-toolbar>
       <ion-content>
@@ -56,15 +56,15 @@
 
     <ion-content :fullscreen="true" id="main-content">
       <div class="selected-masters-container">
-        <div class="selected-masters" v-if="selectedMasters.length > 0">
+        <div class="selected-masters">
           <div
             class="master-info"
-            v-for="master in selectedMasters"
+            v-for="(master, index) in selectedMasters"
             :key="master"
           >
             <div class="master-content" @click="toggleRemoveButton(master)">
               <p
-                @click.stop="removeMaster(master)"
+                @click.stop="removeMaster(index)"
                 class="remove_master_button"
               >
                 ×
@@ -73,16 +73,12 @@
             </div>
           </div>
           <div
-            @click="navigateTo('/master')"
+            @click="this.$router.push('/master')"
             class="add_button"
-            :class="{ show_add_button: shouldShowAddButton }"
+            v-if="selectedMasters.length<5"
           >
             <p>+</p>
           </div>
-        </div>
-
-        <div v-else class="empty-masters-message">
-          Select at least one master 🌻
         </div>
       </div>
 
@@ -156,18 +152,21 @@ import TheDisclaimer from "./TheDisclaimer.vue";
 import Feedback from "../views/Feedback.vue";
 import Rating from "../views/Rating.vue";
 import PrivacyPolicy from "../views/Privacy.vue";
-import emitter from "../event-bus";
+import { mapGetters } from 'vuex'
+
 import {
   IonContent,
   IonHeader,
   IonPage,
   IonTitle,
   IonToolbar,
+  IonMenu,
   IonMenuButton,
   IonButtons,
   IonList,
   IonItem,
   IonLabel,
+  IonMenuToggle,
   menuController,
 } from "@ionic/vue";
 
@@ -178,7 +177,9 @@ export default {
     IonPage,
     IonTitle,
     IonToolbar,
+    IonMenu,
     IonMenuButton,
+    IonMenuToggle,
     IonButtons,
     IonList,
     IonItem,
@@ -190,25 +191,16 @@ export default {
     PrivacyPolicy,
     menuController,
   },
-  created() {
-    emitter.on("updateSelectedMasters", (selectedMasters) => {
-      this.selectedMasters = selectedMasters;
-    });
-  },
   data() {
     return {
       isDisclaimerVisible: true,
-      selectedMasters: [],
     };
   },
   computed: {
-    shouldShowAddButton() {
-      return (
-        this.selectedMasters.length !== 5 && this.selectedMasters.length > 0
-      );
-    },
+    ...mapGetters({
+      selectedMasters: 'getSelectedMasters'
+    })
   },
-
   methods: {
     async navigateTo(path) {
       this.$router.push(path);
@@ -219,6 +211,7 @@ export default {
     },
     closeDisclaimer() {
       this.isDisclaimerVisible = false;
+      this.$router.push('/master');
     },
     async showRating() {
       this.$refs.rating.show();
@@ -234,6 +227,7 @@ export default {
     },
     removeMaster(index) {
       this.selectedMasters.splice(index, 1);
+      this.$store.commit('updateSelectedMasters', this.selectedMasters);
     },
   },
 };
@@ -397,16 +391,10 @@ ion-toolbar {
   margin-top: 6px;
   box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
     rgba(17, 17, 26, 0.1) 0px 0px 8px;
-  display: none;
-}
-.show_add_button {
-  display: block;
 }
 .add_button p {
   border-radius: 50%;
-  position: relative;
-  left: 11px;
-  bottom: 1px;
+  text-align: center;
 }
 ion-page {
   font-family: "Trebuchet MS", sans-serif;
@@ -425,12 +413,6 @@ ul.custom-bullet li::before {
   content: "•";
   color: black;
   font-weight: bold;
-}
-.empty-masters-message {
-  margin: auto;
-  text-align: center;
-  padding: 10px;
-  font-size: 1rem;
 }
 
 @media (max-width: 767px) {
