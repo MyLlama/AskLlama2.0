@@ -77,8 +77,6 @@ export default {
 
 .modal-body {
   position: relative;
-  /* padding-left: 1.5rem;
-  padding-right: 1.5rem; */
   color: black;
   flex-grow: 1;
   overflow-x: hidden;

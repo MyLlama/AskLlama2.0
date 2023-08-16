@@ -107,7 +107,6 @@ export default {
   display: flex;
   justify-content: center;
   font-size: 3rem;
-  /* border: 1px solid red; */
 }
 .rating > img {
   width: 40px;

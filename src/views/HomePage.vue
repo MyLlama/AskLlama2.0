@@ -272,7 +272,6 @@ ion-menu-button {
   margin: 0;
   width: 23px;
   height: 23px;
-  /* border: #f07812 solid; */
 }
 .footer-link {
   text-decoration: none;
@@ -390,7 +389,9 @@ ion-toolbar {
 }
 .add_button p {
   border-radius: 50%;
-  text-align: center;
+  position: relative;
+  left: 11px;
+  bottom: 1px;
 }
 
 
