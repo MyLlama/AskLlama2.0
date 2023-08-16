@@ -253,7 +253,7 @@ ion-menu {
   color: black;
 }
 ion-menu-button {
-  color: black;
+  color: rgb(48, 48, 48);
   font-size: 3rem;
 }
 .ion-no-border {
