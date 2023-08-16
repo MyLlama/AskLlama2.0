@@ -279,7 +279,7 @@ ion-menu-button {
   color: black;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 5px;
   right: 0;
   left: 0;
