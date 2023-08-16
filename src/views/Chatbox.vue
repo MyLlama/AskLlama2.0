@@ -34,31 +34,25 @@
         <img style="width: 100px" src="../assets/new.gif" />
       </div>
     </div>
-    <form @submit.prevent="sendMessage">
-      <input
-        type="text"
-        class="question-input"
-        v-model="inputMessage"
-        @input="validateInput"
-        @keyup.enter="
-          sendMessage();
-          scrollToBottom();
-        "
-        placeholder="How do I find peace in the middle of chaos ?"
-        ref="questionInput"
-        :title="showHover ? 'Select at least one master to ask a question' : ''"
-        v-on:input="validateInput"
-        v-on:focus="validateInput"
-      />
-      <ion-button @click="sendMessage">
-        <ion-icon :icon="paperPlaneOutline"></ion-icon>
-      </ion-button>
-    </form>
+    <input
+      type="text"
+      class="question-input"
+      v-model="inputMessage"
+      @keyup.enter="
+        sendMessage();
+        scrollToBottom();
+      "
+      placeholder="How do I find peace in the middle of chaos ?"
+      ref="questionInput"
+    />
     <div v-show="messages.length > 0" class="clear-chat-button">
       <button @click="clearChat">
         <img class="clear-chat-button-img" src="../assets/dustbin.png" />
       </button>
     </div>
+    <ion-button @click="sendMessage">
+      <ion-icon :icon="paperPlaneOutline"></ion-icon>
+    </ion-button>
   </div>
 </template>
 
@@ -105,17 +99,6 @@ export default {
     clearChat() {
       this.messages = [];
       this.conversationHistory = [];
-    },
-    typeMessage(message) {
-      let index = 0;
-      const interval = setInterval(() => {
-        if (index < message.length) {
-          this.typingMessage += message[index];
-          index++;
-        } else {
-          clearInterval(interval);
-        }
-      }, 100); // Adjust the typing speed by changing this value (milliseconds)
     },
 
     async getGptResponse(prompt, master) {
@@ -322,12 +305,10 @@ ion-icon {
 }
 
 .chatbox-content {
-  height: 70vh;
-  overflow: hidden;
+  /* height: 70vh; */
+  /* overflow: hidden; */
 }
-.chatbox {
-  /* border: 2px solid red; */
-}
+
 .pre-wrap {
   text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -338,9 +319,11 @@ ion-icon {
 }
 
 .messages {
-  margin-bottom: 10% !important;
-  max-height: calc(100% - 40px);
+  /* margin-bottom: 10% !important;
+  max-height: calc(100% - 40px); */
   overflow-y: scroll;
+  height: 70vh;
+  padding-bottom: 30px;
 }
 .spinner {
   display: flex;
@@ -366,9 +349,11 @@ ion-icon {
     font-size: 0.8rem;
   }
   .messages {
-    margin-bottom: 10% !important;
-    max-height: calc(100% - 10px);
+    /* margin-bottom: 10% !important;
+    max-height: calc(100% - 10px); */
     overflow-y: scroll;
+    height: 70vh;
+    padding-bottom: 30px;
   }
 }
 @media (max-width: 300px) {

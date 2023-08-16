@@ -62,7 +62,7 @@
             v-for="(master, index) in selectedMasters"
             :key="master"
           >
-            <div class="master-content" @click="toggleRemoveButton(master)">
+            <div class="master-content">
               <p
                 @click.stop="removeMaster(index)"
                 class="remove_master_button"
@@ -322,7 +322,8 @@ ion-toolbar {
 
 .chatbox-homepage {
   margin-top: 25px;
-  height: 65vh;
+  height: fit-content;
+  /* height: 65vh; */
   /* overflow-y: auto; */
 }
 .remove_master_button {
@@ -433,9 +434,9 @@ ul.custom-bullet li::before {
     color: black;
   }
 
-  .chatbox-homepage {
+  /* .chatbox-homepage {
     height: 68.5vh;
-  }
+  } */
   .selected-masters-container {
     height: 8vh;
   }
