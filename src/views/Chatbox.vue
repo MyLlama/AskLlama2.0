@@ -18,8 +18,13 @@
                 :alt="message.author"
                 class="message-avatar"
               />
-             
-              <img v-else src="../assets/user.jpg" alt="User" class="message-avatar" />
+
+              <img
+                v-else
+                src="../assets/user.jpg"
+                alt="User"
+                class="message-avatar"
+              />
               <div class="pre-wrap">{{ message.text }}</div>
             </div>
           </div>
@@ -35,7 +40,10 @@
         class="question-input"
         v-model="inputMessage"
         @input="validateInput"
-        @keyup.enter="sendMessage(); scrollToBottom();"
+        @keyup.enter="
+          sendMessage();
+          scrollToBottom();
+        "
         placeholder="How do I find peace in the middle of chaos ?"
         ref="questionInput"
         :title="showHover ? 'Select at least one master to ask a question' : ''"
@@ -45,13 +53,6 @@
       <ion-button @click="sendMessage">
         <ion-icon :icon="paperPlaneOutline"></ion-icon>
       </ion-button>
-
-      <div
-        v-if="showHover && touchedInput && errorMessageVisible"
-        class="error-message"
-      >
-        Select the master to ask a question !!
-      </div>
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
       <button @click="clearChat">
@@ -62,7 +63,13 @@
 </template>
 
 <script>
-import { IonButton, IonIcon, IonMenu, IonBackButton, toastController } from "@ionic/vue";
+import {
+  IonButton,
+  IonIcon,
+  IonMenu,
+  IonBackButton,
+  toastController,
+} from "@ionic/vue";
 import { paperPlaneOutline } from "ionicons/icons";
 import user from "../assets/user.jpeg";
 import axios from "axios";
@@ -92,30 +99,9 @@ export default {
       userAvatar: user,
       loading: false,
       conversationHistory: [],
-      touchedInput: false,
-      showHover: false,
-      errorMessageVisible: false,
     };
   },
   methods: {
-    showErrorMessage() {
-      this.errorMessageVisible = true;
-
-      setTimeout(() => {
-        this.errorMessageVisible = false;
-      }, 2000);
-    },
-    validateInput() {
-      this.touchedInput = true;
-      this.showHover =
-        this.inputMessage.trim().length > 0 &&
-        this.selectedMasters.length === 0;
-
-      if (this.showHover) {
-        this.showErrorMessage();
-      }
-    },
-
     clearChat() {
       this.messages = [];
       this.conversationHistory = [];
@@ -135,7 +121,7 @@ export default {
     async getGptResponse(prompt, master) {
       console.log("Getting GPT response for prompt:", prompt);
       // Use the environment variable
-      
+
       const apiKey = import.meta.env.VITE_APP_OPENAI_API_KEY;
       console.log(apiKey);
       const apiEndpoint = "https://api.openai.com/v1/chat/completions";
@@ -174,26 +160,31 @@ export default {
       } finally {
         this.scrollToBottom();
       }
-      
     },
 
     scrollToBottom() {
-        document.getElementsByClassName("messages")[0].scrollIntoView({ behavior: 'smooth', block: 'end',  inline: "nearest" });
+      document
+        .getElementsByClassName("messages")[0]
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+          inline: "nearest",
+        });
     },
 
     async sendMessage() {
-      if(!this.selectedMastersCount){
+      if (!this.selectedMastersCount) {
         const toast = await toastController.create({
-          message: 'Select at least one master to continue!',
+          message: "Select at least one master to continue!",
           duration: 3000,
-          position: 'top',
+          position: "top",
           translucent: true,
-          cssClass: 'toast'
+          cssClass: "toast",
         });
 
         await toast.present();
         return;
-      }  
+      }
       if (!this.inputMessage) {
         return;
       }
@@ -236,10 +227,10 @@ export default {
   },
   watch: {
     messages: {
-      handler (after, before){
+      handler(after, before) {
         this.scrollToBottom();
-      }, 
-      deep: true
+      },
+      deep: true,
     },
 
     selectedMasters: {
@@ -276,7 +267,7 @@ ion-button {
 
 ion-button .button-native {
   border-radius: 100% !important;
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 ion-icon {
@@ -308,8 +299,7 @@ ion-icon {
 
 .chat-container {
   display: flex;
-  align-items: flex-end;
-  margin: 15px 2.5%;
+  margin: 6px 0.5%;
   line-height: 2.5vh;
 }
 
@@ -326,15 +316,18 @@ ion-icon {
 }
 
 .message-avatar {
-  height: 45px;
+  height: 35px;
   border-radius: 100%;
-  align-items: flex-end;
+  margin-top: 7px;
 }
 
 .chatbox-content {
-  height: 100%;
+  height: 70vh;
+  overflow: hidden;
 }
-
+.chatbox {
+  /* border: 2px solid red; */
+}
 .pre-wrap {
   text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -346,6 +339,8 @@ ion-icon {
 
 .messages {
   margin-bottom: 10% !important;
+  max-height: calc(100% - 40px);
+  overflow-y: scroll;
 }
 .spinner {
   display: flex;
@@ -361,6 +356,7 @@ ion-icon {
 @media (max-width: 767px) {
   .message-avatar {
     height: 30px;
+    margin-top: 10px;
   }
   input::placeholder {
     font-size: 0.8rem;
@@ -368,6 +364,16 @@ ion-icon {
   .chat-container {
     margin: 6px 3%;
     font-size: 0.8rem;
+  }
+  .messages {
+    margin-bottom: 10% !important;
+    max-height: calc(100% - 10px);
+    overflow-y: scroll;
+  }
+}
+@media (max-width: 300px) {
+  input::placeholder {
+    font-size: 0.6rem;
   }
 }
 </style>
