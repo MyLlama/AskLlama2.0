@@ -62,8 +62,11 @@
             v-for="(master, index) in selectedMasters"
             :key="master"
           >
-            <div class="master-content" @click="toggleRemoveButton(master)">
-              <p @click.stop="removeMaster(index)" class="remove_master_button">
+            <div class="master-content">
+              <p
+                @click.stop="removeMaster(index)"
+                class="remove_master_button"
+              >
                 ×
               </p>
               <img :src="master.image" :alt="master.name" />
@@ -276,7 +279,7 @@ ion-menu-button {
   color: black;
 }
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 5px;
   right: 0;
   left: 0;
@@ -319,6 +322,9 @@ ion-toolbar {
 
 .chatbox-homepage {
   margin-top: 33px;
+  height: fit-content;
+  /* height: 65vh; */
+  /* overflow-y: auto; */
 }
 .remove_master_button {
   margin-left: auto;
@@ -428,9 +434,9 @@ ul.custom-bullet li::before {
     color: black;
   }
 
-  .chatbox-homepage {
+  /* .chatbox-homepage {
     height: 68.5vh;
-  }
+  } */
   .selected-masters-container {
     height: 8vh;
   }

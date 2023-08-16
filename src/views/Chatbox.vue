@@ -31,7 +31,7 @@
         </transition>
       </div>
       <div class="spinner" v-if="loading">
-        <img style="width: 100px" src="../assets/new.gif" />
+        <img src="../assets/dustbin.png" />
       </div>
     </div>
     <form @submit.prevent="sendMessage">
@@ -55,7 +55,7 @@
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
       <button @click="clearChat">
-        <img src="../assets/dustbin.png" />
+        <img src="../assets/dustbin4.jpg" />
       </button>
     </div>
   </div>
@@ -291,14 +291,11 @@ ion-icon {
   top: 10%;
   right: 13px;
 }
-.clear-chat-button-img {
-}
 
 .chat-container {
   display: flex;
   margin: 6px 2%;
   line-height: 2.5vh;
-  border: 1px solid red;
 }
 
 .user-message {
@@ -322,7 +319,6 @@ ion-icon {
 .chatbox-content {
   height: 70vh;
   overflow: hidden;
-  border: 1px solid red;
 }
 
 .pre-wrap {
