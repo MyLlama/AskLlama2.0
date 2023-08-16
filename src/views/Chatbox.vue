@@ -352,7 +352,7 @@ ion-icon {
     /* margin-bottom: 10% !important;
     max-height: calc(100% - 10px); */
     overflow-y: scroll;
-    height: 70vh;
+    height: 50vh;
     padding-bottom: 30px;
   }
 }
