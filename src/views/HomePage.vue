@@ -288,10 +288,10 @@ ion-label {
 }
 .header-logo {
   border-radius: 100%;
-  width: 60px;
+  width: 55px;
 }
 .main-title {
-  font-size: 1.9rem;
+  font-size: 1.5rem;
   color: white;
 }
 
@@ -392,7 +392,7 @@ ion-toolbar {
 }
 
 .subtitle {
-  font-size: 1.11rem;
+  font-size: 1rem;
   color: black;
 }
 
