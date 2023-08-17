@@ -80,9 +80,7 @@ http://ionicframework.com/docs/theming/ */
   box-sizing:border-box ;
   margin: 0;
   padding: 0;
-  font-family: "Trebuchet MS", sans-serif;
-  
-
+  font-family: 'Montserrat', sans-serif;
 }
 
 
@@ -98,5 +96,4 @@ http://ionicframework.com/docs/theming/ */
 }
 body {
   background-color: white;
-  
 }

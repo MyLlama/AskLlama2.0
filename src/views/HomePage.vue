@@ -63,10 +63,7 @@
             :key="master"
           >
             <div class="master-content">
-              <p
-                @click.stop="removeMaster(index)"
-                class="remove_master_button"
-              >
+              <p @click.stop="removeMaster(index)" class="remove_master_button">
                 ×
               </p>
               <img :src="master.image" :alt="master.name" />
@@ -253,7 +250,7 @@ ion-menu {
   color: black;
 }
 ion-menu-button {
-  color: black;
+  color: rgb(48, 48, 48);
   font-size: 3rem;
 }
 .ion-no-border {
@@ -265,14 +262,14 @@ ion-menu-button {
   padding-top: 5px;
 }
 .ion-toolbar-header {
-  padding: 8px;
+  padding: 3px;
+  border: 1px solid red;
 }
 .back-button {
   padding: 0;
   margin: 0;
   width: 23px;
   height: 23px;
-  /* border: #f07812 solid; */
 }
 .footer-link {
   text-decoration: none;
@@ -311,9 +308,6 @@ ion-item {
   cursor: pointer;
 }
 
-h2 {
-  font-family: "Trebuchet MS", sans-serif;
-}
 ion-toolbar {
   --background: #f07812;
   --color: #fff;
@@ -321,10 +315,8 @@ ion-toolbar {
 }
 
 .chatbox-homepage {
-  margin-top: 33px;
+  margin-top: 40px;
   height: fit-content;
-  /* height: 65vh; */
-  /* overflow-y: auto; */
 }
 .remove_master_button {
   margin-left: auto;
@@ -395,10 +387,9 @@ ion-toolbar {
 }
 .add_button p {
   border-radius: 50%;
-  text-align: center;
-}
-ion-page {
-  font-family: "Trebuchet MS", sans-serif;
+  position: relative;
+  left: 11px;
+  bottom: 1px;
 }
 
 .subtitle {
@@ -424,19 +415,22 @@ ul.custom-bullet li::before {
     width: 95%;
   }
   .header-title {
-    width: 300px;
+    width: 350px;
+    border: 1px solid red;
   }
   .main-title {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    border: 1px solid red;
   }
   .subtitle {
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: black;
   }
+  ion-menu-button {
+    color: rgb(48, 48, 48);
+    font-size: 1.5rem;
+  }
 
-  /* .chatbox-homepage {
-    height: 68.5vh;
-  } */
   .selected-masters-container {
     height: 8vh;
   }
@@ -445,14 +439,18 @@ ul.custom-bullet li::before {
     height: 7vh;
   }
   .footer {
-    font-size: 0.9rem;
-    bottom: 8px;
+    font-size: 0.8rem;
+    bottom: 4px;
+  }
+  .ion-toolbar-header {
+    border: 1px solid red;
+    padding: 0px;
   }
 }
 
 @media (max-width: 380px) {
   .header-title {
-    width: 250px;
+    width: 300px;
   }
   .main-title {
     font-size: 1.2rem;

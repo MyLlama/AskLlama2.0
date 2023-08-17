@@ -54,10 +54,13 @@
       </ion-button>
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
-      <button @click="clearChat">
-        <img src="../assets/dustbin4.jpg" />
-      </button>
+      <ion-button class="ion-no-padding" @click="clearChat">
+      <ion-icon :icon="trashOutline"></ion-icon>
+    </ion-button>
     </div>
+    <ion-button class="send-button" @click="sendMessage">
+      <ion-icon :icon="paperPlaneOutline"></ion-icon>
+    </ion-button>
   </div>
 </template>
 
@@ -69,7 +72,7 @@ import {
   IonBackButton,
   toastController,
 } from "@ionic/vue";
-import { paperPlaneOutline } from "ionicons/icons";
+import { paperPlaneOutline, trashOutline } from "ionicons/icons";
 import user from "../assets/user.jpeg";
 import axios from "axios";
 export default {
@@ -162,11 +165,10 @@ export default {
     },
 
     scrollToBottom() {
-      document.getElementsByClassName("messages")[0].scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-        inline: "nearest",
-      });
+      const element = document.getElementsByClassName("messages")[0];
+      
+      element.scrollTop = element.scrollHeight;
+      
     },
 
     async sendMessage() {
@@ -244,6 +246,7 @@ export default {
   setup() {
     return {
       paperPlaneOutline,
+      trashOutline
     };
   },
 };
@@ -253,22 +256,23 @@ export default {
 ion-button {
   --background: white;
   border: none;
-  color: black;
   --box-shadow: none;
+  border-radius: 100%;
+  padding: 0;
+}
+.send-button ion-icon {
+  color: rgb(48, 48, 48);
+}
+.send-button {
   position: fixed;
   bottom: 5.5%;
   right: 3%;
   z-index: 1000000;
-  border-radius: 100%;
+  --background: transparent;
 }
 
-ion-button .button-native {
-  border-radius: 100% !important;
+button.button-native {
   padding: 0 !important;
-}
-
-ion-icon {
-  color: black;
 }
 
 .question-input {
@@ -286,12 +290,17 @@ ion-icon {
 .question-input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
+
 .clear-chat-button {
   position: fixed;
   top: 10%;
-  right: 13px;
+  right: 10px;
 }
 
+.clear-chat-button ion-icon {
+  color: #f07812;
+  font-size: 22px;
+}
 .chat-container {
   display: flex;
   margin: 6px 2%;
@@ -316,11 +325,6 @@ ion-icon {
   margin-top: 7px;
 }
 
-.chatbox-content {
-  height: 70vh;
-  overflow: hidden;
-}
-
 .pre-wrap {
   text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -331,8 +335,6 @@ ion-icon {
 }
 
 .messages {
-  margin-bottom: 10% !important;
-  max-height: calc(100% - 40px);
   overflow-y: scroll;
 }
 .spinner {
@@ -359,8 +361,6 @@ ion-icon {
     font-size: 0.8rem;
   }
   .messages {
-    margin-bottom: 10% !important;
-    max-height: calc(100% - 10px);
     overflow-y: scroll;
   }
 }
