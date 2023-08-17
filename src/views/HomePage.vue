@@ -242,6 +242,7 @@ ion-menu {
   padding: 0vh;
   cursor: pointer;
   --background: #fff;
+  height: 40px;
 }
 .about-us {
   text-decoration: none;
@@ -270,8 +271,8 @@ ion-menu-button {
 .back-button {
   padding: 0;
   margin: 0;
-  width: 23px;
-  height: 23px;
+  width: 20px;
+  height: 20px;
 }
 .footer-link {
   text-decoration: none;
@@ -365,6 +366,8 @@ ion-toolbar {
   text-align: center;
 }
 .back-button {
+  height: 16px;
+  width: 16px;
   margin-left: 10px;
   margin-top: 10px;
 }

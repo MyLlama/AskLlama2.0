@@ -277,6 +277,7 @@ button.button-native {
   position: fixed;
   top: 9.3%;
   right: 10px;
+  margin-top: 5px;
 }
 
 .clear-chat-button ion-icon {
@@ -353,6 +354,10 @@ button.button-native {
 @media (max-width: 450px) {
   input::placeholder {
     font-size: 0.7rem;
+  }
+
+  .clear-chat-button {
+    margin-top: 5px;
   }
 
 }
