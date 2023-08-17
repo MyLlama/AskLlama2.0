@@ -31,7 +31,7 @@
         </transition>
       </div>
       <div class="spinner" v-if="loading">
-        <img src="../assets/dustbin.png" />
+        <img src="../assets/new.gif" />
       </div>
     </div>
     <form @submit.prevent="sendMessage">
@@ -39,15 +39,12 @@
         type="text"
         class="question-input"
         v-model="inputMessage"
-        @input="validateInput"
         @keyup.enter="
           sendMessage();
           scrollToBottom();
         "
         placeholder="How do I find peace in the middle of chaos ?"
         ref="questionInput"
-        v-on:input="validateInput"
-        v-on:focus="validateInput"
       />
       <ion-button @click="sendMessage">
         <ion-icon :icon="paperPlaneOutline"></ion-icon>
@@ -55,8 +52,8 @@
     </form>
     <div v-show="messages.length > 0" class="clear-chat-button">
       <ion-button class="ion-no-padding" @click="clearChat">
-      <ion-icon :icon="trashOutline"></ion-icon>
-    </ion-button>
+        <ion-icon :icon="trashOutline"></ion-icon>
+      </ion-button>
     </div>
     <ion-button class="send-button" @click="sendMessage">
       <ion-icon :icon="paperPlaneOutline"></ion-icon>
@@ -166,9 +163,8 @@ export default {
 
     scrollToBottom() {
       const element = document.getElementsByClassName("messages")[0];
-      
+
       element.scrollTop = element.scrollHeight;
-      
     },
 
     async sendMessage() {
@@ -246,7 +242,7 @@ export default {
   setup() {
     return {
       paperPlaneOutline,
-      trashOutline
+      trashOutline,
     };
   },
 };
@@ -293,13 +289,14 @@ button.button-native {
 
 .clear-chat-button {
   position: fixed;
-  top: 10%;
+  top: 9.5%;
   right: 10px;
 }
 
 .clear-chat-button ion-icon {
   color: #f07812;
   font-size: 22px;
+  
 }
 .chat-container {
   display: flex;

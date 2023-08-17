@@ -263,7 +263,6 @@ ion-menu-button {
 }
 .ion-toolbar-header {
   padding: 3px;
-  border: 1px solid red;
 }
 .back-button {
   padding: 0;
@@ -415,12 +414,10 @@ ul.custom-bullet li::before {
     width: 95%;
   }
   .header-title {
-    width: 350px;
-    border: 1px solid red;
+    width: 320px;
   }
   .main-title {
     font-size: 1.1rem;
-    border: 1px solid red;
   }
   .subtitle {
     font-size: 0.7rem;
@@ -438,17 +435,17 @@ ul.custom-bullet li::before {
   .selected-masters {
     height: 7vh;
   }
+
   .footer {
     font-size: 0.8rem;
     bottom: 4px;
   }
   .ion-toolbar-header {
-    border: 1px solid red;
     padding: 0px;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 350px) {
   .header-title {
     width: 300px;
   }
@@ -463,17 +460,11 @@ ul.custom-bullet li::before {
     padding: 0px;
   }
   .footer {
-    font-size: 0.8rem;
-    bottom: 8px;
+    font-size: 0.6rem;
+    bottom: 5px;
   }
 }
 
-@media (max-width: 300px) {
-  .footer {
-    font-size: 0.6rem;
-    bottom: px;
-  }
-}
 @media (max-width: 250px) {
   .header-title {
     width: 200px;
