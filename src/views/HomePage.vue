@@ -457,7 +457,7 @@ ul.custom-bullet li::before {
   }
   .footer {
     font-size: 0.8rem;
-    bottom: 15px;
+    bottom: 12px;
   }
 
   ion-menu-button {
