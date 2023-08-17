@@ -370,7 +370,7 @@ ion-back-button {
   padding: 10px 20px;
   text-align: center;
   color: white;
-  border-radius: 30px;
+  border-radius: 20px;
   display: block;
   border: 0px;
   font-weight: 700;
@@ -447,10 +447,23 @@ ion-back-button {
   }
   .button-87 {
     width: 90vw;
-    border-radius: 20px;
+    border-radius: 10px;
   }
   .done-button {
     right: 5%;
+  }
+}
+
+@media (max-width: 450px) {
+  ion-back-button {
+    font-size: 0.8rem;
+  }
+
+  ion-title {
+    font-size: 1.3rem;
+  }
+  ion-toolbar {
+    --min-height: 50px;
   }
 }
 </style>
