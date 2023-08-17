@@ -247,7 +247,7 @@ ion-button {
 }
 .send-button {
   position: fixed;
-  bottom: 5.5%;
+  bottom: 6.7%;
   right: 3%;
   z-index: 1000000;
   --background: transparent;
@@ -261,7 +261,7 @@ button.button-native {
   background-color: #fff;
   width: 95%;
   position: fixed;
-  bottom: 5%;
+  bottom: 6%;
   left: 2.5%;
   border: none;
   border-radius: 50px;
@@ -350,9 +350,14 @@ button.button-native {
     padding-bottom: 30px;
   }
 }
-@media (max-width: 300px) {
+@media (max-width: 450px) {
   input::placeholder {
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
+
+  .question-input, .send-button {
+    bottom: 6%;
+  }
+
 }
 </style>

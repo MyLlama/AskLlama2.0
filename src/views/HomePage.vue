@@ -254,7 +254,7 @@ ion-menu {
 }
 ion-menu-button {
   color: rgb(48, 48, 48);
-  font-size: 3rem;
+  font-size: 2rem;
 }
 .ion-no-border {
   padding: 5px;
@@ -265,7 +265,7 @@ ion-menu-button {
   padding-top: 5px;
 }
 .ion-toolbar-header {
-  padding: 8px;
+  padding: 5px;
 }
 .back-button {
   padding: 0;
@@ -279,7 +279,7 @@ ion-menu-button {
 }
 .footer {
   position: fixed;
-  bottom: 5px;
+  bottom: 12px;
   right: 0;
   left: 0;
   text-align: center;
@@ -291,10 +291,10 @@ ion-label {
 }
 .header-logo {
   border-radius: 100%;
-  width: 60px;
+  width: 50px;
 }
 .main-title {
-  font-size: 1.9rem;
+  font-size: 1.5rem;
   color: white;
 }
 
@@ -396,7 +396,7 @@ ion-toolbar {
 
 
 .subtitle {
-  font-size: 1.11rem;
+  font-size: 1rem;
   color: black;
 }
 
@@ -421,7 +421,7 @@ ul.custom-bullet li::before {
     width: 300px;
   }
   .main-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
   .subtitle {
     font-size: 0.9rem;
@@ -441,12 +441,12 @@ ul.custom-bullet li::before {
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 450px) {
   .header-title {
-    width: 250px;
+    width: 300px;
   }
   .main-title {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .subtitle {
     font-size: 0.7rem;
@@ -457,11 +457,15 @@ ul.custom-bullet li::before {
   }
   .footer {
     font-size: 0.8rem;
-    bottom: 8px;
+    bottom: 15px;
+  }
+
+  ion-menu-button {
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 300px) {
+/* @media (max-width: 300px) {
   .footer {
     font-size: 0.6rem;
     bottom: px;
@@ -478,5 +482,5 @@ ul.custom-bullet li::before {
     font-size: 0.5rem;
     color: black;
   }
-}
+} */
 </style>
