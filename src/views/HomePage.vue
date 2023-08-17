@@ -456,8 +456,8 @@ ul.custom-bullet li::before {
     padding: 0px;
   }
   .footer {
-    font-size: 0.8rem;
-    bottom: 12px;
+    font-size: 0.7rem;
+    bottom: 10px;
   }
 
   ion-menu-button {
@@ -465,10 +465,10 @@ ul.custom-bullet li::before {
   }
 }
 
-/* @media (max-width: 300px) {
+/* @media (max-width: 380px) {
   .footer {
     font-size: 0.6rem;
-    bottom: px;
+    bottom: 6px;
   }
 }
 @media (max-width: 250px) {

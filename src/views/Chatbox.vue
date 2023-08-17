@@ -352,11 +352,7 @@ button.button-native {
 }
 @media (max-width: 450px) {
   input::placeholder {
-    font-size: 0.8rem;
-  }
-
-  .question-input, .send-button {
-    bottom: 6%;
+    font-size: 0.7rem;
   }
 
 }
