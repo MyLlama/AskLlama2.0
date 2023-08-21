@@ -296,7 +296,6 @@ ion-label {
 }
 .main-title {
   font-size: 1.5rem;
-  color: white;
 }
 
 .header-title {

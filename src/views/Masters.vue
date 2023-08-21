@@ -358,25 +358,21 @@ ion-back-button {
   font-weight: bold;
 }
 .done-button {
+  display: flex;
+  justify-content: center;
   position: fixed;
   bottom: 2%;
-  right: 37%;
   z-index: 999;
+  width: 100%;
 }
 .button-87 {
-  width: 30vw;
-  margin: auto;
+  width: 50vw;
   font-size: 17px;
-  padding: 10px 20px;
-  text-align: center;
-  color: white;
-  border-radius: 20px;
-  display: block;
-  border: 0px;
+  padding: 14px 20px;
+  border-radius: 10px;
   font-weight: 700;
   box-shadow: 0px 0px 14px -7px #f09819;
   background-color: #f07812;
-  cursor: pointer;
 }
 
 .button-87:hover {
@@ -408,7 +404,7 @@ ion-back-button {
 
   display: flex;
   flex-wrap: wrap;
-  padding: 1.5rem;
+  padding-left: 1rem;
 }
 
 .back-icon > img {
@@ -418,7 +414,7 @@ ion-back-button {
 }
 .master {
   text-align: center;
-  width: 100px;
+  width: 105px;
   cursor: pointer;
   margin: 10px 20px;
 }
@@ -427,13 +423,12 @@ ion-back-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);
 }
 
 .master-name {
   margin-top: 10px;
   font-size: 14px;
-  text-align: center;
-  font-weight: bold;
   color: #434242;
 }
 
@@ -447,10 +442,6 @@ ion-back-button {
   }
   .button-87 {
     width: 90vw;
-    border-radius: 10px;
-  }
-  .done-button {
-    right: 5%;
   }
 }
 

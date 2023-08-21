@@ -277,7 +277,6 @@ button.button-native {
   position: fixed;
   top: 9.3%;
   right: 10px;
-  margin-top: 5px;
 }
 
 .clear-chat-button ion-icon {
