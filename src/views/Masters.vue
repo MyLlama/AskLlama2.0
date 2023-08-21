@@ -368,6 +368,7 @@ ion-back-button {
 .button-87 {
   width: 50vw;
   font-size: 17px;
+  color: white;
   padding: 14px 20px;
   border-radius: 10px;
   font-weight: 700;
