@@ -58,11 +58,11 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
-  toastController
+  toastController,
 } from "@ionic/vue";
 
 import { save, chevronBackOutline } from "ionicons/icons";
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 import krishna2 from "../assets/krishna2.jpg";
 import jusus from "../assets/Christ.jpg";
@@ -99,20 +99,24 @@ export default defineComponent({
 
   computed: {
     ...mapGetters({
-      selectedMasters: 'getSelectedMasters'
-    })
+      selectedMasters: "getSelectedMasters",
+    }),
   },
 
   ionViewWillEnter() {
     this.mastersCategory.map((category) => {
       category.masters.map((master) => {
-        if(this.selectedMasters.find(selectedMaster => master.name === selectedMaster.name)){
+        if (
+          this.selectedMasters.find(
+            (selectedMaster) => master.name === selectedMaster.name
+          )
+        ) {
           master.selected = true;
         } else {
           master.selected = false;
         }
-      })
-    })
+      });
+    });
   },
 
   data() {
@@ -292,11 +296,11 @@ export default defineComponent({
       } else {
         if (this.selectedMasters.length >= 5) {
           const toast = await toastController.create({
-            message: 'You can only select up to 5 masters.',
+            message: "You can only select up to 5 masters.",
             duration: 3000,
-            position: 'top',
+            position: "top",
             translucent: true,
-            cssClass: 'toast'
+            cssClass: "toast",
           });
 
           await toast.present();
@@ -308,20 +312,20 @@ export default defineComponent({
     },
 
     async presentToast() {
-        const toast = await toastController.create({
-          message: 'Select at least one master!!',
-          duration: 3000,
-          position: 'top',
-          translucent: true,
-          cssClass: 'toast'
-        });
+      const toast = await toastController.create({
+        message: "Select at least one master!!",
+        duration: 3000,
+        position: "top",
+        translucent: true,
+        cssClass: "toast",
+      });
 
-        await toast.present();
-      },
+      await toast.present();
+    },
 
     saveSelectedMasters() {
-      this.$store.commit('updateSelectedMasters', this.selectedMasters);
-      if(this.selectedMasters.length) this.$router.push("/home");
+      this.$store.commit("updateSelectedMasters", this.selectedMasters);
+      if (this.selectedMasters.length) this.$router.push("/home");
       else this.presentToast();
     },
   },
@@ -334,9 +338,8 @@ export default defineComponent({
 });
 </script>
 <style scoped>
-
-.toast  {
-  background-color: #000!important;
+.toast {
+  background-color: #000 !important;
   color: white;
 }
 ion-toolbar {
@@ -382,15 +385,16 @@ ion-back-button {
   text-decoration: none;
 }
 
-.master-image {
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
-    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+.selected-master .master-name {
+  color: #000;
 }
 
 .selected-master .master-image {
-  transform: scale(1.2);
+  transform: scale(1.3);
   cursor: pointer;
   border: 2px solid #f07812;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-weight: bold;
 }
 .master-header {
   padding: 10px;
@@ -402,7 +406,6 @@ ion-back-button {
   margin: auto;
 }
 .masters-container {
-
   display: flex;
   flex-wrap: wrap;
   padding-left: 1rem;
@@ -424,7 +427,8 @@ ion-back-button {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 1px 2px 0 rgba(60,64,67,.3),0 2px 6px 2px rgba(60,64,67,.15);
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3),
+    0 2px 6px 2px rgba(60, 64, 67, 0.15);
 }
 
 .master-name {

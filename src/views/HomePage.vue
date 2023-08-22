@@ -296,6 +296,7 @@ ion-label {
 }
 .main-title {
   font-size: 1.5rem;
+   letter-spacing: 1px;
 }
 
 .header-title {
@@ -350,6 +351,7 @@ ion-toolbar {
   align-items: center;
   flex-wrap: nowrap;
   padding: 10px;
+
 }
 
 .master-info {
@@ -375,8 +377,9 @@ ion-toolbar {
   border-radius: 50%;
   max-width: 40px;
   height: auto;
-  border: #f07812 solid;
+  border: 2px solid #f07812;
   cursor: pointer;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 .add_button {
   cursor: pointer;
@@ -400,6 +403,7 @@ ion-toolbar {
 .subtitle {
   font-size: 1rem;
   color: black;
+  font-weight: lighter;
 }
 
 ul.custom-bullet {
@@ -424,6 +428,7 @@ ul.custom-bullet li::before {
   }
   .main-title {
     font-size: 1.2rem;
+    letter-spacing: 0px
   }
   .subtitle {
     font-size: 0.9rem;
