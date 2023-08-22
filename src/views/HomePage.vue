@@ -98,6 +98,7 @@
     <the-disclaimer v-show="isDisclaimerVisible" @close="closeDisclaimer">
       <template v-slot:header>
         <h2>Disclaimer</h2>
+        
       </template>
       <template #body>
         <ul class="custom-bullet">
