@@ -265,7 +265,7 @@ button.button-native {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   outline: none;
-  margin-right:5vh;
+  padding-right:5vh;
 }
 .question-input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
