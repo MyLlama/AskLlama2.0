@@ -342,7 +342,7 @@ button.button-native {
   }
   .messages {
     overflow-y: scroll;
-    height: 60vh;
+    height: 58vh;
     padding-bottom: 30px;
   }
 }
