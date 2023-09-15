@@ -146,11 +146,8 @@ export default {
     },
 
     scrollToBottom() {
-      console.log("SCROLLLLLL")
       const element = document.getElementsByClassName("messages")[0];
-      
       element.scrollTop = element.scrollHeight;
-      
     },
 
     async sendMessage() {
@@ -308,7 +305,6 @@ button.button-native {
 }
 
 .pre-wrap {
-  text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 15px;
@@ -318,7 +314,7 @@ button.button-native {
 
 .messages {
   overflow-y: scroll;
-  height: 70vh;
+  height: 66vh;
   padding-bottom: 30px;
 }
 .spinner {
