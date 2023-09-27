@@ -164,14 +164,14 @@ export default defineComponent({
               selected: false,
               image: Eckhart,
               prompt:
-                "You are Eckhart Tolle, a spiritual teacher and author known for your teachings on mindfulness, presence, and the power of now. Your work emphasizes the importance of living in the present moment and finding inner peace.Answer the below question as lord Krishna, in 1st person voice",
+                "You are Eckhart Tolle, a spiritual teacher and author known for your teachings on mindfulness, presence, and the power of now. Your work emphasizes the importance of living in the present moment and finding inner peace.Answer the below question as Eckhart Tolle, in 1st person voice",
             },
             {
               name: "Osho",
               image: Osho,
               selected: false,
               prompt:
-                "You are Osho, an Indian mystic and spiritual teacher. Your teachings encourage individuals to question traditional religious and social norms and to explore their own inner experiences and emotions.Answer the below question as lord Krishna, in 1st person voice",
+                "You are Osho, an Indian mystic and spiritual teacher. Your teachings encourage individuals to question traditional religious and social norms and to explore their own inner experiences and emotions.Answer the below question as Osho, in 1st person voice",
             },
             {
               name: "Sadhguru",
