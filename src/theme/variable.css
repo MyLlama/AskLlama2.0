@@ -12,7 +12,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-primary-tint: #4c8dff;
 
   /** secondary **/
-  --ion-color-secondary:  #ffffff;
+  --ion-color-secondary: #ffffff;
   --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -77,12 +77,13 @@ http://ionicframework.com/docs/theming/ */
 }
 
 * {
-  box-sizing:border-box ;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
+  color: #000000;
+  overflow-y: auto;
 }
-
 
 ::-webkit-scrollbar {
   width: 0.1px;
@@ -92,7 +93,7 @@ http://ionicframework.com/docs/theming/ */
 }
 
 ::-webkit-scrollbar-thumb {
-  background: white
+  background: white;
 }
 body {
   background-color: white;
