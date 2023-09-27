@@ -19,9 +19,9 @@
             >
           </ion-item>
 
-          <!-- <ion-item lines="none" @click="showFeedback">
+          <ion-item lines="none" @click="showFeedback">
             <ion-label class="about-us">Feedback</ion-label>
-          </ion-item> -->
+          </ion-item>
 
           <!-- <ion-item lines="none" @click="navigateTo('/home')">
             <ion-label class="about-us">Share</ion-label>
@@ -31,9 +31,9 @@
             <ion-label class="about-us">Privacy Policy</ion-label>
           </ion-item>
 
-          <!-- <ion-item lines="none" @click="showRating">
+          <ion-item lines="none" @click="showRating">
             <ion-label class="about-us">Rate Us</ion-label>
-          </ion-item> -->
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
@@ -149,10 +149,10 @@
 
 <script>
 import Chatbox from "@/views/Chatbox.vue";
-import TheDisclaimer from "./TheDisclaimer.vue";
-import Feedback from "../views/Feedback.vue";
-import Rating from "../views/Rating.vue";
-import PrivacyPolicy from "../views/Privacy.vue";
+import TheDisclaimer from "./legals/TheDisclaimer.vue";
+import Feedback from "../views/feedbacks/Feedback.vue";
+import Rating from "../views/feedbacks/Rating.vue";
+import PrivacyPolicy from "./legals/Privacy.vue";
 import { mapGetters } from 'vuex'
 
 import {

@@ -17,7 +17,7 @@
 <script>
 import TheTestimonials from "../components/feedbacks/TheTestimonials.vue";
 import TheRatings from "../components/feedbacks/TheRatings.vue";
-import ThumbsVotes from "../components/feedbacks/ThumbsVotes.vue";
+import ThumbsVotes from "../components/votes/ThumbsVotes.vue";
 
 export default {
   components: {

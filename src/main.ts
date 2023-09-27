@@ -24,11 +24,6 @@ import "@ionic/vue/css/display.css";
 /* Theme variables */
 import "./theme/variable.css";
 
-/* import the fontawesome core */
-
-/* import font awesome icon component */
-
-// import specfic icons
 
 const store = createStore({
   state() {

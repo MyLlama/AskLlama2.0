@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import TheDisclaimer from "./TheDisclaimer.vue";
+import TheDisclaimer from "../legals/TheDisclaimer.vue";
 
 export default {
   components: {
@@ -59,8 +59,34 @@ export default {
         alert("Please fill in all the required fields!");
         return;
       }
-      this.thankYouMessage = true;
-    },
+
+      // Create a feedback object to send to the server
+      const feedbackData = {
+        name: name,
+        email: email,
+        feedback: feedback,
+      };
+
+      // Make a POST request to your API
+      fetch("https://agile-smock-worm.cyclic.app/feedbacks/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackData),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            this.thankYouMessage = true;
+          } else {
+            alert("Failed to submit feedback. Please try again later.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error submitting feedback:", error);
+          alert("An error occurred while submitting feedback.");
+        });
+   },
   },
 };
 </script>
