@@ -33,7 +33,7 @@
           placeholder="Anything you would like to add...."
           ref="feedbackTextarea"
         ></textarea>
-       <br />
+        <br />
         <br />
         <button class="submit-rating" @click="submitRating">Submit</button>
       </div>
@@ -43,7 +43,7 @@
         <p>Thank you for rating AskLlama! 🌻</p>
         <br />
         <br />
-        <img class="logo-llama" src="../assets/llama-lgo.png" />
+        <img class="logo-llama" src="../../assets/llama-lgo.png" />
       </div>
     </template>
   </the-disclaimer>
@@ -51,7 +51,7 @@
 
 <script>
 import axios from "axios";
-import TheDisclaimer from '../legals/TheDisclaimer.vue';
+import TheDisclaimer from "../legals/TheDisclaimer.vue";
 import star from "../../assets/star.png";
 import star1 from "../../assets/star (1).png";
 
@@ -120,7 +120,7 @@ export default {
           "An error occurred while submitting your rating. Please try again later."
         );
       }
-   },
+    },
   },
 };
 </script>

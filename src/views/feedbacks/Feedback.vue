@@ -25,7 +25,7 @@
         <br />
         <p>Thank you for Your Valuable Feedback! 🌻</p>
         <br />
-        <!-- <img class="logo-llama" src="../assets/llama-lgo.png" /> -->
+        <img class="logo-llama" src="../../assets/llama-lgo.png" />
       </div>
     </template>
   </the-disclaimer>
