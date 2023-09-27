@@ -129,10 +129,16 @@ export default {
           "GPT response:",
           response.data.choices[0].message.content.trim()
         );
+        
+        // Save the assistant's response to the conversation history
+        this.conversationHistory.push({
+          role: "system",
+          content: master.prompt,
+        });
 
         // Save the assistant's response to the conversation history
         this.conversationHistory.push({
-          role: "assistant",
+          role: "system",
           content: response.data.choices[0].message.content.trim(),
         });
 
