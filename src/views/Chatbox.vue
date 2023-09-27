@@ -25,7 +25,27 @@
                 alt="User"
                 class="message-avatar"
               />
-              <div class="pre-wrap">{{ message.text }}</div>
+              <div
+                class="pre-wrap"
+                :class="{ 'pre-wrap-master': message.type === 'master' }"
+              >
+                {{ message.text }}
+
+                <div v-if="message.type === 'master'" class="thumbs">
+                  <button class="thumbButt" @click="vote(true, message.author)">
+                    👍
+                  </button>
+                  <button
+                    class="thumbButt"
+                    @click="vote(false, message.author)"
+                  >
+                    👎
+                  </button>
+                  <button class="thumbButt" @click="copyMessage(message.text)">
+                    📑 Copy
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </transition>
@@ -47,8 +67,8 @@
     />
     <div v-show="messages.length > 0" class="clear-chat-button">
       <ion-button class="ion-no-padding" @click="clearChat">
-      <ion-icon :icon="trashOutline"></ion-icon>
-    </ion-button>
+        <ion-icon :icon="trashOutline"></ion-icon>
+      </ion-button>
     </div>
     <ion-button class="send-button" @click="sendMessage">
       <ion-icon :icon="paperPlaneOutline"></ion-icon>
@@ -93,6 +113,7 @@ export default {
       userAvatar: user,
       loading: false,
       conversationHistory: [],
+      MasterAndPromptsArr: [],
     };
   },
   methods: {
@@ -104,14 +125,21 @@ export default {
     async getGptResponse(prompt, master) {
       console.log("Getting GPT response for prompt:", prompt);
       // Use the environment variable
+      // const apiKey = import.meta.env.VITE_APP_OPENAI_API_KEY;
+      const apiKey = `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`;
 
-      const apiKey = import.meta.env.VITE_APP_OPENAI_API_KEY;
       console.log(apiKey);
       const apiEndpoint = "https://api.openai.com/v1/chat/completions";
       const headers = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       };
+
+      //in this Arr we push master name and prompts
+      this.MasterAndPromptsArr.push({
+        name: master.name,
+        prompt: master.prompt,
+      });
 
       const data = {
         model: "gpt-3.5-turbo",
@@ -129,23 +157,11 @@ export default {
           "GPT response:",
           response.data.choices[0].message.content.trim()
         );
-        
-        // Save the assistant's response to the conversation history
-        this.conversationHistory.push({
-          role: "system",
-          content: master.prompt,
-        });
 
         // Save the assistant's response to the conversation history
         this.conversationHistory.push({
-          role: "system",
+          role: "assistant",
           content: response.data.choices[0].message.content.trim(),
-        });
-
-        // Save the user's message to the conversation history
-        this.conversationHistory.push({
-          role: "user",
-          content: `${prompt}`,
         });
 
         return response.data.choices[0].message.content.trim();
@@ -158,7 +174,9 @@ export default {
     },
 
     scrollToBottom() {
+      console.log("SCROLLLLLL");
       const element = document.getElementsByClassName("messages")[0];
+
       element.scrollTop = element.scrollHeight;
     },
 
@@ -193,6 +211,12 @@ export default {
       this.inputMessage = "";
       this.loading = true;
 
+      // Save the user's message to the conversation history
+      this.conversationHistory.push({
+        role: "user",
+        content: `${userMessage}`,
+      });
+
       for (const master of this.selectedMasters) {
         // Call the ChatGPT API and get response
         const gptResponse = await this.getGptResponse(userMessage, master);
@@ -207,8 +231,111 @@ export default {
       }
 
       this.loading = false; // Add this line
+
+      // =======================================================
+      const CH = this.conversationHistory;
+      console.log({ CH });
+
+      const QN = CH[0].content;
+
+      const loggs1 = this.MasterAndPromptsArr.map((ele) => {
+        return {
+          Master: ele.name,
+          Prompt: ele.prompt,
+        };
+      });
+
+      const loggs2 = CH.slice(1).map((item) => {
+        return {
+          Question: QN,
+          Answer: item.content,
+        };
+      });
+
+      const combinedLoggs = loggs2.map((item, index) => {
+        return {
+          Master: loggs1[index].Master,
+          Prompt: loggs1[index].Prompt, // Use the corresponding Master from loggs1
+          ...item, // Spread the properties from loggs2
+        };
+      });
+
+      // Create the obj object with the combinedLoggs array
+      const obj = {
+        loggs: combinedLoggs,
+      };
+
+      try {
+        const LoggingsResponse = await axios.post(
+          `https://agile-smock-worm.cyclic.app/loggings/post`,
+          obj
+        );
+        console.log(LoggingsResponse.data.msg);
+        this.conversationHistory = [];
+        this.MasterAndPromptsArr = [];
+      } catch (error) {
+        console.error("Error sending POST request:", error);
+      }
+    },
+
+    async vote(isUpvote, masterName) {
+      // Find the master's message based on the master's name
+      const message = this.messages.find((msg) => msg.author === masterName);
+
+      if (!message) {
+        console.error(`Master ${masterName}'s answer not found.`);
+        return;
+      }
+
+      // Extract relevant data
+      const masterMessage = message.text;
+
+      // Create the object to send in the POST request
+      const voteData = {
+        answer: masterMessage,
+        master: masterName,
+        vote: isUpvote, // true for "👍", false for "👎"
+      };
+
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/thumbvote/post",
+          voteData
+        );
+        if (response.status === 200) {
+          this.thankYouMessage = true;
+          alert(
+            `Vote ${
+              isUpvote ? "👍" : "👎"
+            } sent successfully for ${masterName}'s answer!`
+          );
+        } else {
+          alert("Failed to submit your rating. Please try again later.");
+        }
+      } catch (error) {
+        console.error("Error submitting voting:", error);
+        alert(
+          "An error occurred while submitting your voting. Please try again later."
+        );
+      }
+    },
+
+    copyMessage(text) {
+      // Create a textarea element to copy the text to the clipboard
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+
+      // Select the text in the textarea and copy it to the clipboard
+      textarea.select();
+      document.execCommand("copy");
+
+      // Remove the textarea
+      document.body.removeChild(textarea);
+      alert("copied to clipboard");
     },
   },
+
   watch: {
     messages: {
       handler(after, before) {
@@ -231,13 +358,23 @@ export default {
   setup() {
     return {
       paperPlaneOutline,
-      trashOutline
+      trashOutline,
     };
   },
 };
 </script>
 
 <style scoped>
+.thumbButt {
+  background-color: white;
+}
+.thumbs {
+  justify-content: flex-end;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 ion-button {
   --background: white;
   border: none;
@@ -271,7 +408,6 @@ button.button-native {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   outline: none;
-  padding-right:5vh;
 }
 .question-input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -312,6 +448,7 @@ button.button-native {
 }
 
 .pre-wrap {
+  text-align: justify;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   padding: 15px;
@@ -321,7 +458,7 @@ button.button-native {
 
 .messages {
   overflow-y: scroll;
-  height: 66vh;
+  height: 70vh;
   padding-bottom: 30px;
 }
 .spinner {
@@ -336,6 +473,9 @@ button.button-native {
 }
 
 @media (max-width: 767px) {
+  .thumbs {
+    margin-top: 0px;
+  }
   .message-avatar {
     height: 30px;
     margin-top: 10px;
@@ -349,7 +489,7 @@ button.button-native {
   }
   .messages {
     overflow-y: scroll;
-    height: 58vh;
+    height: 60vh;
     padding-bottom: 30px;
   }
 }
@@ -361,6 +501,5 @@ button.button-native {
   .clear-chat-button {
     margin-top: 5px;
   }
-
 }
 </style>

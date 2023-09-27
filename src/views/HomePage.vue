@@ -19,9 +19,9 @@
             >
           </ion-item>
 
-          <!-- <ion-item lines="none" @click="showFeedback">
+          <ion-item lines="none" @click="showFeedback">
             <ion-label class="about-us">Feedback</ion-label>
-          </ion-item> -->
+          </ion-item>
 
           <!-- <ion-item lines="none" @click="navigateTo('/home')">
             <ion-label class="about-us">Share</ion-label>
@@ -31,9 +31,10 @@
             <ion-label class="about-us">Privacy Policy</ion-label>
           </ion-item>
 
-          <!-- <ion-item lines="none" @click="showRating">
+          <ion-item lines="none" @click="showRating">
             <ion-label class="about-us">Rate Us</ion-label>
-          </ion-item> -->
+          </ion-item>
+
         </ion-list>
       </ion-content>
     </ion-menu>
