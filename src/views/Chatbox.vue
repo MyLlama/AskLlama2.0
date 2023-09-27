@@ -136,6 +136,12 @@ export default {
           content: response.data.choices[0].message.content.trim(),
         });
 
+        // Save the user's message to the conversation history
+        this.conversationHistory.push({
+          role: "user",
+          content: `${prompt}`,
+        });
+
         return response.data.choices[0].message.content.trim();
       } catch (error) {
         console.error("Error calling ChatGPT API:", error);
@@ -193,12 +199,6 @@ export default {
         this.messages.push(masterResponse);
         this.scrollToBottom();
       }
-
-      // Save the user's message to the conversation history
-      this.conversationHistory.push({
-        role: "user",
-        content: `${userMessage}\n`,
-      });
 
       this.loading = false; // Add this line
     },
