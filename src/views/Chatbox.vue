@@ -118,7 +118,7 @@ export default {
         messages: [
           ...this.conversationHistory, // Include the existing conversation history
           { role: "system", content: master.prompt },
-          { role: "user", content: `${prompt}\n` },
+          { role: "user", content: `${prompt}+" Give answers as first person"` },
         ],
       };
 
@@ -132,7 +132,7 @@ export default {
 
         // Save the assistant's response to the conversation history
         this.conversationHistory.push({
-          role: "assistant",
+          role: "system",
           content: response.data.choices[0].message.content.trim(),
         });
 
