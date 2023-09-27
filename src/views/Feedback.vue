@@ -1,8 +1,5 @@
 <template>
-  <the-disclaimer
-    v-show="isVisible"
-    @close="close"
-  >
+  <the-disclaimer v-show="isVisible" @close="close">
     <template v-slot:header>
       <h2>Feedback</h2>
     </template>
@@ -55,11 +52,38 @@ export default {
       const name = this.$refs.nameInput.value;
       const email = this.$refs.emailInput.value;
       const feedback = this.$refs.feedbackTextarea.value;
+
       if (!name || !email || !feedback) {
         alert("Please fill in all the required fields!");
         return;
       }
-      this.thankYouMessage = true;
+
+      // Create a feedback object to send to the server
+      const feedbackData = {
+        name: name,
+        email: email,
+        feedback: feedback,
+      };
+
+      // Make a POST request to your API
+      fetch("https://agile-smock-worm.cyclic.app/feedbacks/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackData),
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            this.thankYouMessage = true;
+          } else {
+            alert("Failed to submit feedback. Please try again later.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error submitting feedback:", error);
+          alert("An error occurred while submitting feedback.");
+        });
     },
   },
 };
