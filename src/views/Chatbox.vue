@@ -184,7 +184,7 @@ export default {
       // Save the user's message to the conversation history
       this.conversationHistory.push({
         role: "user",
-        content: `Q: ${userMessage}\n`,
+        content: `${userMessage}\n`,
       });
 
       for (const master of this.selectedMasters) {
