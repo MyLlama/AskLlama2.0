@@ -118,7 +118,7 @@ export default {
         messages: [
           ...this.conversationHistory, // Include the existing conversation history
           { role: "system", content: master.prompt },
-          { role: "user", content: `${prompt}\n` },
+          { role: "user", content: `${prompt}` },
         ],
       };
 
@@ -132,7 +132,7 @@ export default {
 
         // Save the assistant's response to the conversation history
         this.conversationHistory.push({
-          role: "assistant",
+          role: "system",
           content: response.data.choices[0].message.content.trim(),
         });
 
@@ -184,7 +184,7 @@ export default {
       // Save the user's message to the conversation history
       this.conversationHistory.push({
         role: "user",
-        content: `Q: ${userMessage}\n`,
+        content: `${userMessage}\n`,
       });
 
       for (const master of this.selectedMasters) {
