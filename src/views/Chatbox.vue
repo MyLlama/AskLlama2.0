@@ -118,7 +118,7 @@ export default {
         messages: [
           ...this.conversationHistory, // Include the existing conversation history
           { role: "system", content: master.prompt },
-          { role: "user", content: `Q: ${prompt}\n` },
+          { role: "user", content: `${prompt}` },
         ],
       };
 
@@ -181,12 +181,6 @@ export default {
       this.inputMessage = "";
       this.loading = true;
 
-      // Save the user's message to the conversation history
-      this.conversationHistory.push({
-        role: "user",
-        content: `Q: ${userMessage}\n`,
-      });
-
       for (const master of this.selectedMasters) {
         // Call the ChatGPT API and get response
         const gptResponse = await this.getGptResponse(userMessage, master);
@@ -199,6 +193,12 @@ export default {
         this.messages.push(masterResponse);
         this.scrollToBottom();
       }
+
+      // Save the user's message to the conversation history
+      this.conversationHistory.push({
+        role: "user",
+        content: `${userMessage}\n`,
+      });
 
       this.loading = false; // Add this line
     },
@@ -265,6 +265,7 @@ button.button-native {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
   outline: none;
+  padding-right:5vh;
 }
 .question-input:focus {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
