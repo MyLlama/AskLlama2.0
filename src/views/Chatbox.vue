@@ -311,7 +311,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "http://localhost:3000/thumbvote/post",
+          "https://agile-smock-worm.cyclic.app/thumbvote/post",
           voteData
         );
         if (response.status === 200) {
