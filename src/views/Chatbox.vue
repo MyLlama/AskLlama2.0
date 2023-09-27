@@ -118,7 +118,7 @@ export default {
         messages: [
           ...this.conversationHistory, // Include the existing conversation history
           { role: "system", content: master.prompt },
-          { role: "user", content: `${prompt}+" Give answers as first person"` },
+          { role: "user", content: `${prompt}` },
         ],
       };
 
