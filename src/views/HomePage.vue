@@ -82,11 +82,11 @@
         </div>
       </div>
 
-      <chatbox
+      <the-chatbox
         class="chatbox-homepage"
         :selectedMasters="selectedMasters"
         :selectedMastersCount="selectedMasters.length"
-      ></chatbox>
+      ></the-chatbox>
       <div class="footer">
         <a class="footer-link" href="https://www.myllama.co/">
           Join Llama's programs to awaken your inner wisdom🌻
@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import Chatbox from "@/views/Chatbox.vue";
+import TheChatbox from "@/views/TheChatbox.vue";
 import TheDisclaimer from "./legals/TheDisclaimer.vue";
 import Feedback from "../views/feedbacks/Feedback.vue";
 import Rating from "../views/feedbacks/Rating.vue";
@@ -185,7 +185,7 @@ export default {
     IonList,
     IonItem,
     IonLabel,
-    Chatbox,
+    TheChatbox,
     TheDisclaimer,
     Feedback,
     Rating,
