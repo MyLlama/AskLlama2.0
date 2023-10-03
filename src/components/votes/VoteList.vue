@@ -1,6 +1,10 @@
 <template>
   <div class="vote-column">
-    <h4>{{ title }}</h4>
+      <h4 v-if="isMobile" @click="toggleVotes">
+        {{ title }} {{ showVotes ? "🔽" : "🔼" }}
+      </h4>
+      <h4 v-else>{{ title }}</h4>
+    <div v-if="showVotes || !isMobile">
     <div v-for="vote in votes" :key="vote._id" class="container">
       <!-- <div class="vote-container"> -->
       <div class="vote-timestamp">
@@ -17,6 +21,7 @@
           <span class="content">{{ vote.answer }}</span>
         </span>
       </div>
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +31,12 @@ export default {
   props: {
     votes: Array, // An array of votes
     title: String, // Title for the list
+  },
+  data() {
+  return {
+    showVotes: false,
+    isMobile: false,
+  };
   },
   methods: {
     getVoteText(vote) {
@@ -42,6 +53,19 @@ export default {
       // Combine date and time
       return `${formattedDate} ${formattedTime}`;
     },
+   toggleVotes() {
+    this.showVotes = !this.showVotes;
+    },
+    checkMobile() {
+    this.isMobile = window.innerWidth < 768;
+    },
+  },
+  mounted() {
+    this.checkMobile();
+    window.addEventListener("resize", this.checkMobile);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkMobile);
   },
 };
 </script>

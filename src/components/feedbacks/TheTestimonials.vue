@@ -1,9 +1,12 @@
 <template>
   <section>
     <div class="feedback-container">
-      <h2>Ｆｅｅｄｂａｃｋｓ 🌻</h2>
+      <h2 v-if="isMobile" @click="toggleFeedbacks">
+        Ｆｅｅｄｂａｃｋｓ 🌻 {{ showFeedbacks ? "🔽" : "🔼" }}
+      </h2>
+      <h2 v-else>Ｆｅｅｄｂａｃｋｓ 🌻</h2>
       <!--Give letter spacing here -->
-
+      <div v-if="showFeedbacks || !isMobile">
       <div v-for="feedback in feedbacks" :key="feedback._id">
         <div class="feedback-name-container">
           <h3 class="feedback-name">
@@ -16,6 +19,7 @@
         <h5 class="feedback-email">{{ feedback.email }}</h5>
         <p class="feedback">{{ feedback.feedback }}</p>
       </div>
+     </div>
     </div>
   </section>
 </template>
@@ -26,11 +30,18 @@ export default {
   data() {
     return {
       feedbacks: [],
+      showFeedbacks: false,
+      isMobile: false,
     };
   },
   computed: {},
   mounted() {
     this.getFeedback();
+    this.checkMobile();
+    window.addEventListener("resize", this.checkMobile);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkMobile);
   },
   methods: {
     async getFeedback() {
@@ -51,6 +62,12 @@ export default {
       const formattedTime = date.toLocaleTimeString();
       // Combine date and time
       return `${formattedDate} ${formattedTime}`;
+    },
+    toggleFeedbacks() {
+      this.showFeedbacks = !this.showFeedbacks;
+    },
+    checkMobile() {
+     this.isMobile = window.innerWidth < 768; 
     },
   },
 };

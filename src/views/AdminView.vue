@@ -64,7 +64,7 @@ export default {
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
   margin: 1rem;
-  max-height: 100vh;
+  max-height: 90vh;
   overflow-y: auto;
 }
 
@@ -75,7 +75,7 @@ export default {
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
   margin: 1rem;
-  max-height: 100vh;
+  max-height: 90vh;
   overflow-y: auto;
 }
 

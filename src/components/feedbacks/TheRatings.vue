@@ -1,7 +1,11 @@
 <template>
   <section>
     <div class="rating-container">
-      <h2>Ｒａｔｉｎｇｓ ⭐</h2>
+      <h2 v-if="isMobile" @click="toggleRatings">
+        Ｒａｔｉｎｇｓ ⭐ {{ showRatings ? "🔽" : "🔼" }}
+      </h2>
+      <h2 v-else>Ｒａｔｉｎｇｓ ⭐</h2>
+      <div v-if="showRatings || !isMobile">
       <div v-for="rating in ratingData" :key="rating._id">
         <div class="rating-main-container">
           <div class="rating-stars">
@@ -14,6 +18,7 @@
         <p class="comments">{{ rating.comments }}</p>
       </div>
     </div>
+  </div>
   </section>
 </template>
 
@@ -23,10 +28,17 @@ export default {
   data() {
     return {
       ratingData: [],
+      showRatings: false,
+      isMobile: false,
     };
   },
   mounted() {
     this.fetchRatings();
+    this.checkMobile();
+    window.addEventListener("resize", this.checkMobile);
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkMobile);
   },
   methods: {
     async fetchRatings() {
@@ -54,6 +66,12 @@ export default {
         starRating += "½"; // Half star if there's a remainder
       }
       return starRating;
+    },
+    toggleRatings() {
+      this.showRatings = !this.showRatings;
+    },
+    checkMobile() {
+      this.isMobile = window.innerWidth < 768; 
     },
   },
 };
