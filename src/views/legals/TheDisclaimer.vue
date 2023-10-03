@@ -81,7 +81,7 @@ export default {
   flex-grow: 1;
   overflow-x: hidden;
   text-align: left;
-  padding: 15px 30px;
+  padding: 5px 30px;
 }
 
 .btn-close {
@@ -123,7 +123,8 @@ export default {
 @media (max-width: 767px) {
   .modal {
     width: 80% !important;
-    height: 47vh !important;
+    /* height: 47vh !important; */
+     border-radius: 12px;
   }
   .btn-close {
     top: 2.1vw;

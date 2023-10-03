@@ -169,7 +169,4 @@ export default {
 span {
   font-weight: bold;
 }
-.custom-bullet {
-  text-align: justify;
-}
 </style>

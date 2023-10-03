@@ -54,50 +54,43 @@ export default {
 .feedback-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  
 }
 .feedback {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  position: relative;
-  /* height: 100vh; */
-  background-color: #FCF7EE;
+  background-color: #fcf7ee;
   backdrop-filter: blur(200px);
   filter: blur();
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
-  overflow: hidden;
   margin: 1rem;
-  /* padding: 2rem; */
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .thumb-votes {
-  position: relative;
-  height: 100vh;
-  background-color: #FCF7EE;
+  background-color: #fcf7ee;
   backdrop-filter: blur(200px);
   filter: blur();
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 9px;
   margin: 1rem;
-  /* padding: 2rem; */
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 @media (max-width: 968px) {
   .feedback-container {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  
-}
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
   .feedback {
     grid-template-columns: repeat(2, 1fr);
   }
 
   .header {
- 
-  font-size: 1.6rem;
-  
-}
+    font-size: 1.6rem;
+  }
 }
 @media (max-width: 480px) {
   .feedback {

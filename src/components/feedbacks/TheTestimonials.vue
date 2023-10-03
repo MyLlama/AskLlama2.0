@@ -36,7 +36,7 @@ export default {
     async getFeedback() {
       try {
         const response = await axios.get(
-          "https://agile-smock-worm.cyclic.app/feedbacks"
+          "http://35.178.4.216:3000/feedbacks/" // Changing test url to production url
         );
         this.feedbacks = response.data;
       } catch (error) {

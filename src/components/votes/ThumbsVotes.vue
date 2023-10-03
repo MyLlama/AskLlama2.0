@@ -32,7 +32,7 @@ export default {
     async getThumbVotes() {
       try {
         const response = await axios.get(
-          "https://agile-smock-worm.cyclic.app/thumbvote"
+          "http://35.178.4.216:3000/thumbvote" // Replace test url with production url
         );
         // Filter upvotes and downvotes based on some criteria
         // console.log(response.data)
@@ -61,9 +61,7 @@ export default {
 .vote-main-container > div {
   border-radius: 9px;
   text-align: left;
-  /* padding: 0 0.5rem 1rem 1rem; */
   background-color: transparent;
-  /* box-shadow: 0px 0px 16px rgba(17, 17, 26, 0.25); */
 }
 
 .vote-main-container h2 {

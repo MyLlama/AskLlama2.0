@@ -2,6 +2,8 @@
   <the-disclaimer
     v-show="isVisible"
     @close="close"
+    :modalWidth="modalWidth"
+    :modalHeight="modalHeight"
   >
     <template v-slot:header>
       <h2>Feedback</h2>
@@ -42,6 +44,8 @@ export default {
     return {
       isVisible: false,
       thankYouMessage: false,
+       modalWidth: "26%",
+      modalHeight: "55vh",
     };
   },
   methods: {
@@ -68,7 +72,8 @@ export default {
       };
 
       // Make a POST request to your API
-      fetch("https://agile-smock-worm.cyclic.app/feedbacks/post", {
+      fetch("http://35.178.4.216:3000/feedbacks/post", {
+        // Changing test url to production url
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +91,7 @@ export default {
           console.error("Error submitting feedback:", error);
           alert("An error occurred while submitting feedback.");
         });
-   },
+    },
   },
 };
 </script>
@@ -104,8 +109,8 @@ input {
   padding: 10px;
   background-color: white;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 10px 0px;
+  border-radius: 9px;
 }
 .feedback-textarea {
   background-color: white;
@@ -117,10 +122,10 @@ input {
   box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px,
     rgba(17, 17, 26, 0.05) 0px 8px 32px;
 
-  border-radius: 30px;
+  border-radius: 9px;
 }
 .submit-rating {
-  margin: auto;
+  margin: 1rem auto;
   font-size: 17px;
   padding: 10px 20px;
   text-align: center;

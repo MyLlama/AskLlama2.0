@@ -71,10 +71,6 @@ export default {
   justify-content: space-between;
 }
 
-/* .votes h1 {
-    font-size: 3rem;
-} */
-
 .vote-timestamp {
   padding-top: 0.3rem;
   font-size: 0.7rem;
