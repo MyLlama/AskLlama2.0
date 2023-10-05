@@ -104,7 +104,7 @@ export default {
       try {
         // Make a POST request to your backend API
         const response = await axios.post(
-          "http://35.178.4.216:3000/rating/post", // Changing test url to production url
+          "https://agile-smock-worm.cyclic.app/rating/post", // Changing test url to production url
           postData
         );
 

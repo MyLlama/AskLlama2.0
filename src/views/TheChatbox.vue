@@ -316,7 +316,7 @@ export default {
 
       try {
         const LoggingsResponse = await axios.post(
-          `http://35.178.4.216:3000/loggings/post`, // changing test url to production url
+          `https://agile-smock-worm.cyclic.app/loggings/post`, // changing test url to production url
           obj
         );
         console.log(LoggingsResponse.data.msg);
@@ -361,7 +361,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "http://35.178.4.216:3000/thumbvote/post", // Change test url to production url
+          "https://agile-smock-worm.cyclic.app/thumbvote/post", // Change test url to production url
           voteData
         );
         if (response.status === 200) {
