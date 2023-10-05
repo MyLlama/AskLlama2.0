@@ -72,7 +72,7 @@ export default {
       };
 
       // Make a POST request to your API
-      fetch("http://35.178.4.216:3000/feedbacks/post", {
+      fetch("https://agile-smock-worm.cyclic.app/feedbacks/post", {
         // Changing test url to production url
         method: "POST",
         headers: {

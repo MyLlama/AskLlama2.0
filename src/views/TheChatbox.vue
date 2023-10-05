@@ -62,8 +62,11 @@
                       alt="Thumbs Down"
                     />
                   </button>
-                  <button class="thumbButt" @click="copyMessage(message.text)">
-                    📑 Copy
+                  <button class="thumbButt" @click="copyMessage(message)" v-if="!message.isCopied">
+                    <img :src="copyimgUrl" alt="Copy" />
+                  </button>
+                  <button class="thumbButt" v-else>
+                    <img :src="copyFilledUrl" alt="Copy" />
                   </button>
                 </div>
               </div>
@@ -111,7 +114,8 @@ import thumbUp from "../assets/thumb-up.png";
 import thumbDown from "../assets/thumb-down.png";
 import thumbUpFilled from "../assets/thumb-up-fill.png";
 import thumbDownFilled from "../assets/thumb-down-fill.png";
-
+import copyimg from "../assets/paper-stack.png"
+import copyFilled from "../assets/paper-stack (1).png"
 import axios from "axios";
 
 export default {
@@ -148,6 +152,8 @@ export default {
       thumbDownUrl: thumbDown,
       thumbDownFilledUrl: thumbDownFilled,
       thumbButtonClicked: false, // Property to track whether any thumb button is clicked
+      copyimgUrl: copyimg, // Original image 
+      copyFilledUrl: copyFilled, // Image  after clicking the button  
     };
   },
   methods: {
@@ -310,7 +316,7 @@ export default {
 
       try {
         const LoggingsResponse = await axios.post(
-          `http://35.178.4.216:3000/loggings/post`, // changing test url to production url
+          `https://agile-smock-worm.cyclic.app/loggings/post`, // changing test url to production url
           obj
         );
         console.log(LoggingsResponse.data.msg);
@@ -355,7 +361,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "http://35.178.4.216:3000/thumbvote/post", // Change test url to production url
+          "https://agile-smock-worm.cyclic.app/thumbvote/post", // Change test url to production url
           voteData
         );
         if (response.status === 200) {
@@ -379,10 +385,10 @@ export default {
       }
     },
 
-    copyMessage(text) {
+    copyMessage(message) {
       // Create a textarea element to copy the text to the clipboard
       const textarea = document.createElement("textarea");
-      textarea.value = text;
+      textarea.value = message.text;
       document.body.appendChild(textarea);
 
       // Select the text in the textarea and copy it to the clipboard
@@ -391,7 +397,8 @@ export default {
 
       // Remove the textarea
       document.body.removeChild(textarea);
-      alert("copied to clipboard");
+      message.isCopied = true;
+     
     },
   },
   watch: {
@@ -422,6 +429,10 @@ export default {
 <style scoped>
 .thumbButt {
   background-color: white;
+}
+
+.thumbButt >img{
+  height: 15px;
 }
 .thumbs {
   justify-content: flex-end;
