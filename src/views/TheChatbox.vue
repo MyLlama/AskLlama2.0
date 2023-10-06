@@ -33,14 +33,14 @@
 
                 <div v-if="message.type === 'master'" class="thumbs">
                   <button
-                    class="thumbButt"
-                    @click="vote(true, message.author)"
-                    :disabled="thumbButtonClicked"
+                  class="thumb-Buttons"
+                  @click="vote(true, message.author, message.answerIndex)"
+                  :disabled="disableThumbs[`${message.author}-${message.answerIndex}`] || thumbButtonClicked"
                   >
                     <img
                       :src="
-                        votingStates[message.author] &&
-                        votingStates[message.author].upvote
+                      votingStates[`${message.author}-${message.answerIndex}`] &&
+                      votingStates[`${message.author}-${message.answerIndex}`].upvote
                           ? thumbUpFilledUrl
                           : thumbUpUrl
                       "
@@ -48,24 +48,24 @@
                     />
                   </button>
                   <button
-                    class="thumbButt"
-                    @click="vote(false, message.author)"
-                    :disabled="thumbButtonClicked"
+                  class="thumb-Buttons"
+                  @click="vote(false, message.author, message.answerIndex)"
+                  :disabled="disableThumbs[`${message.author}-${message.answerIndex}`] || thumbButtonClicked"
                   >
                     <img
                       :src="
-                        votingStates[message.author] &&
-                        votingStates[message.author].downvote
+                      votingStates[`${message.author}-${message.answerIndex}`] &&
+                      votingStates[`${message.author}-${message.answerIndex}`].downvote
                           ? thumbDownFilledUrl
                           : thumbDownUrl
                       "
                       alt="Thumbs Down"
                     />
                   </button>
-                  <button class="thumbButt" @click="copyMessage(message)" v-if="!message.isCopied">
+                  <button class="thumb-Buttons" @click="copyMessage(message)" v-if="!message.isCopied">
                     <img :src="copyimgUrl" alt="Copy" />
                   </button>
-                  <button class="thumbButt" v-else>
+                  <button class="thumb-Buttons" v-else>
                     <img :src="copyFilledUrl" alt="Copy" />
                   </button>
                 </div>
@@ -153,7 +153,9 @@ export default {
       thumbDownFilledUrl: thumbDownFilled,
       thumbButtonClicked: false, // Property to track whether any thumb button is clicked
       copyimgUrl: copyimg, // Original image 
-      copyFilledUrl: copyFilled, // Image  after clicking the button  
+      copyFilledUrl: copyFilled, // Image  after clicking the button
+      votingStates: {}, // Object to store voting states for each answer
+      disableThumbs: {}, // Object to store disabled state for each message  
     };
   },
   methods: {
@@ -267,6 +269,8 @@ export default {
       });
 
       for (const master of this.selectedMasters) {
+        this.resetVotingState(master.name);
+
         // Call the ChatGPT API and get response
         const gptResponse = await this.getGptResponse(userMessage, master);
         const masterResponse = {
@@ -274,6 +278,8 @@ export default {
           image: master.image,
           text: gptResponse,
           type: "master",
+          answerIndex: this.messages.filter((msg) => msg.author === master.name).length, // Assign a unique answer index
+
         };
         this.messages.push(masterResponse);
         this.scrollToBottom();
@@ -326,21 +332,26 @@ export default {
         console.error("Error sending POST request:", error);
       }
     },
+    resetVotingState(masterName) {
+      if (this.votingStates[masterName]) {
+        this.votingStates[masterName] = {};
+      }
+    },
 
-    async vote(isUpvote, masterName) {
+    async vote(isUpvote, masterName,answerIndex) {
       // Find the master's message based on the master's name
-      console.log(masterName);
-      const message = this.messages.find((msg) => msg.author === masterName);
+      const message = this.messages.find((msg) => msg.author === masterName && msg.answerIndex === answerIndex);
 
       if (!message) {
         console.error(`Master ${masterName}'s answer not found.`);
         return;
       }
       // Check if the master is already voted
-      if (
-        this.votingStates[masterName] &&
-        this.votingStates[masterName][isUpvote ? "upvote" : "downvote"]
-      ) {
+     // Check if the answer is already voted
+    const isAnswerUpvoted = this.votingStates[`${masterName}-${answerIndex}`]?.upvote;
+    const isAnswerDownvoted = this.votingStates[`${masterName}-${answerIndex}`]?.downvote; 
+
+    if ((isUpvote && isAnswerUpvoted) || (!isUpvote && isAnswerDownvoted)) {
         alert(
           `You have already voted ${
             isUpvote ? "👍" : "👎"
@@ -348,6 +359,7 @@ export default {
         );
         return;
       }
+      this.disableThumbs[`${masterName}-${answerIndex}`] = true;
 
       // Extract relevant data
       const masterMessage = message.text;
@@ -366,16 +378,14 @@ export default {
         );
         if (response.status === 200) {
           // Update the voting state to indicate that the master is voted
-          if (!this.votingStates[masterName]) {
-            this.votingStates[masterName] = {};
-          }
-          this.votingStates[masterName][
-            isUpvote ? "upvote" : "downvote"
-          ] = true;
+          if (!this.votingStates[`${masterName}-${answerIndex}`]) {
+          this.votingStates[`${masterName}-${answerIndex}`] = {};
+        }
+        this.votingStates[`${masterName}-${answerIndex}`][
+          isUpvote ? "upvote" : "downvote"
+        ] = true;
+          this.thumbButtonClicked = false;
           this.thankYouMessage = true;
-
-          // Update the clicked state to disable the thumb buttons
-          this.thumbButtonClicked = true;
         }
       } catch (error) {
         console.error("Error submitting voting:", error);
@@ -427,11 +437,11 @@ export default {
 </script>
 
 <style scoped>
-.thumbButt {
+.thumb-Buttons  {
   background-color: white;
 }
 
-.thumbButt >img{
+.thumb-Buttons  >img{
   height: 15px;
 }
 .thumbs {

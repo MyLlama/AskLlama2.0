@@ -10,12 +10,12 @@
         <div class="rating-main-container">
           <div class="rating-stars">
             <h6>{{ getStarRating(rating.rating) }}</h6>
+            <p class="comments">{{ rating.comments }}</p>
           </div>
           <div class="rating-timestamp">
             <span>{{ formatTimestamp(rating.timestamp) }}</span>
-          </div>
+          </div> 
         </div>
-        <p class="comments">{{ rating.comments }}</p>
       </div>
     </div>
   </div>
@@ -86,11 +86,8 @@ export default {
   padding: 1rem;
 }
 .rating-container > div {
-  border-radius: 9px;
   text-align: left;
-  padding: 0 0.5rem 1rem 1rem;
-  box-shadow: 0px 0px 8px rgba(17, 17, 26, 0.1);
-  background-color: white;
+
 }
 .rating-container h2 {
   color: #f07812;
@@ -99,6 +96,11 @@ export default {
 .rating-main-container {
   display: flex;
   justify-content: space-between;
+  background-color: white;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem 1rem 1rem;
+  box-shadow: 0px 0px 8px rgba(17, 17, 26, 0.1);
+  border-radius: 9px;
 }
 .rating-timestamp {
   font-size: 0.7rem;

@@ -11,13 +11,13 @@
         <div class="feedback-name-container">
           <h3 class="feedback-name">
             <strong>{{ feedback.name }}</strong>
+            <h5 class="feedback-email">{{ feedback.email }}</h5>
+            <p class="feedback">{{ feedback.feedback }}</p>
           </h3>
           <div class="feedback-timestamp">
             <span>{{ formatTimestamp(feedback.timestamp) }}</span>
           </div>
         </div>
-        <h5 class="feedback-email">{{ feedback.email }}</h5>
-        <p class="feedback">{{ feedback.feedback }}</p>
       </div>
      </div>
     </div>
@@ -81,11 +81,7 @@ export default {
   padding: 1rem;
 }
 .feedback-container > div {
-  border-radius: 9px;
   text-align: left;
-  padding: 0 0.5rem 1rem 1rem;
-  box-shadow: 0px 0px 8px rgba(17, 17, 26, 0.1);
-  background-color: white;
 }
 .feedback-container h2 {
   color: #f07812;
@@ -94,6 +90,12 @@ export default {
 .feedback-name-container {
   display: flex;
   justify-content: space-between;
+  padding: 0 0.5rem 0.2rem ;
+  margin-bottom: 1rem;
+  box-shadow: 0px 0px 8px rgba(17, 17, 26, 0.1);
+  background-color: white;
+  border-radius: 9px;
+
 }
 .feedback-name {
   font-size: 1.2rem;
