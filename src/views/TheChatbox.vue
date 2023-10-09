@@ -32,7 +32,7 @@
                 {{ message.text }}
 
                 <div v-if="message.type === 'master'" class="thumbs">
-                  <button
+                  <!-- <button
                     class="thumbButt"
                     @click="vote(true, message.author)"
                     :disabled="thumbButtonClicked"
@@ -46,8 +46,8 @@
                       "
                       alt="Thumbs Up"
                     />
-                  </button>
-                  <button
+                  </button> -->
+                  <!-- <button
                     class="thumbButt"
                     @click="vote(false, message.author)"
                     :disabled="thumbButtonClicked"
@@ -61,7 +61,7 @@
                       "
                       alt="Thumbs Down"
                     />
-                  </button>
+                  </button> -->
                   <button class="thumbButt" @click="copyMessage(message)" v-if="!message.isCopied">
                     <img :src="copyimgUrl" alt="Copy" />
                   </button>
