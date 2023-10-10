@@ -32,7 +32,7 @@ export default {
     async getThumbVotes() {
       try {
         const response = await axios.get(
-          "http://35.178.4.216:3000/thumbvote" // Replace test url with production url
+          "https://agile-smock-worm.cyclic.app/thumbvote" // Replace test url with production url
         );
         // Filter upvotes and downvotes based on some criteria
         // console.log(response.data)

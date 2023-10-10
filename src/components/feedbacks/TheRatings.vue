@@ -44,7 +44,7 @@ export default {
     async fetchRatings() {
       try {
         const response = await axios.get(
-          "http://35.178.4.216:3000/rating" // Changing test url to production url
+          "https://agile-smock-worm.cyclic.app/rating" // Changing test url to production url
         );
         this.ratingData = response.data;
       } catch (error) {
